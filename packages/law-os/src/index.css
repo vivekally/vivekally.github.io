@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink text-slate-200 font-sans antialiased;
+}
+
+::selection {
+  background: rgba(61, 220, 132, 0.25);
+}
+
+/* Workbench B: single flat accent, no gradients. Kept as a class so existing
+   markup doesn't need a sweep. */
+.grad-text {
+  color: #3ddc84;
+}
+
+.glass {
+  @apply rounded-lg border border-line bg-panel;
+}
+
+.glass-hover {
+  @apply transition hover:border-line2;
+}

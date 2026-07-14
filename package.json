@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/pm-os-landing",
+    "packages/law-os-deals",
+    "packages/law-os"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "build:landing": "npm run build -w packages/pm-os-landing",
+    "build:law-deals": "npm run build -w packages/law-os-deals",
+    "build:law-os": "npm run build -w packages/law-os"
+  }
+}

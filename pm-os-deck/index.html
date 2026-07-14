@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PM OS — Investor Deck</title>
+<meta name="description" content="PM OS investor deck: the AI that remembers your product decisions — with receipts. Problem, why now, product phases, market, competition, moat, GTM, roadmap." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="PM OS — Investor Deck" />
+<meta property="og:description" content="12 slides: a provenance-tagged PM brain as the wedge, the drift loop as the prize." />
+<meta property="og:url" content="https://vivekally.github.io/pm-os-deck/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#070A11;--surface:#0F1420;--surface2:#141B29;--line:#1E2D45;--text:#E2E8F0;--muted:#64748B;--faint:#566380;--accent:#3DDC84;--code:#7FE8B0;--amber:#D9A406;--doc:#7FE8B0;--verbal:#5BC0EB;--hunch:#C9A227;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px;}
+header.top{position:sticky;top:0;z-index:10;background:rgba(7,10,17,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.top-inner{max-width:1060px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.logo{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:15px;text-decoration:none;}
+.logo span{color:var(--muted);}
+.top-inner .spacer{flex:1;}
+.btn{background:var(--accent);color:#070A11;border-radius:7px;padding:8px 16px;font-size:13px;font-weight:600;text-decoration:none;}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);}
+.slide{border:1px solid var(--line);background:var(--surface);border-radius:10px;margin:26px auto;padding:38px 42px;position:relative;}
+.slide .num{position:absolute;top:16px;right:20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+h1{font-size:clamp(34px,6vw,54px);letter-spacing:-.02em;line-height:1.08;}
+h2{font-size:clamp(24px,3.6vw,32px);letter-spacing:-.015em;margin-bottom:6px;}
+h3{font-size:17px;margin-bottom:4px;}
+.sub{color:var(--muted);font-size:14.5px;margin-bottom:22px;}
+.accent{color:var(--accent);}
+.grid{display:grid;gap:14px;margin-top:18px;}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.card{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:18px;}
+.card .tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;margin-bottom:8px;}
+.card p{font-size:13.5px;color:var(--text);}
+.card .src{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);}
+.quote{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:22px;font-size:18px;font-weight:600;font-style:italic;}
+.quote .attr{display:block;margin-top:12px;font-size:12px;font-weight:400;font-style:normal;color:var(--accent);}
+.stat{display:flex;gap:16px;align-items:baseline;background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:10px;flex-wrap:wrap;}
+.stat .lbl{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);width:44px;}
+.stat .big{font-size:22px;font-weight:700;color:var(--accent);}
+.stat .what{font-size:12.5px;color:var(--text);}
+.stat .how{width:100%;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);}
+.term{background:#0A0E16;border:1px solid var(--line);border-radius:8px;padding:16px 18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.8;margin-top:20px;overflow-x:auto;}
+.term .p{color:var(--muted);} .term .c{color:var(--code);}
+.pill{font-family:'JetBrains Mono',monospace;font-size:11px;padding:1px 8px;border-radius:20px;border:1px solid;}
+.pill.doc{color:var(--doc);border-color:rgba(127,232,176,.4);}
+.pill.verbal{color:var(--verbal);border-color:rgba(91,192,235,.4);}
+.pill.hunch{color:var(--hunch);border-color:rgba(201,162,39,.4);}
+.strip{margin-top:18px;border:1px dashed var(--line);border-radius:8px;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--code);text-align:center;}
+.lane{display:flex;gap:14px;align-items:baseline;border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:13px 16px;margin-top:10px;flex-wrap:wrap;}
+.lane .l{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;min-width:150px;}
+.lane .pl{font-size:13px;font-weight:600;}
+.lane .v{width:100%;font-size:12px;color:var(--muted);}
+.open{border:1.5px solid var(--accent);background:rgba(61,220,132,.06);border-radius:8px;padding:18px;margin-top:16px;}
+.open .t{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent);letter-spacing:.1em;margin-bottom:8px;}
+.row{display:flex;gap:14px;border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:13px 16px;margin-top:10px;align-items:baseline;flex-wrap:wrap;}
+.row .when{font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:600;font-size:13px;min-width:64px;}
+.row .h{font-weight:700;font-size:14px;min-width:150px;}
+.row .b{flex:1;font-size:12.5px;color:var(--text);min-width:220px;}
+.row .g{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--code);width:100%;}
+.note{margin-top:16px;font-size:12.5px;color:var(--muted);}
+.honest{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--code);}
+footer{padding:34px 20px 60px;text-align:center;color:var(--faint);font-size:12.5px;}
+footer a{color:var(--muted);}
+@media(max-width:640px){.slide{padding:26px 20px;}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-inner">
+  <a class="logo" href="https://vivekally.github.io/pm-os-landing/">pm<span>-</span>os<span>.app</span></a>
+  <span class="mono" style="font-size:11px;color:var(--faint)">INVESTOR DECK · JULY 2026</span>
+  <span class="spacer"></span>
+  <a class="btn ghost" href="https://github.com/vivekally/pm-os-deck/blob/main/sources.md">Sources</a>
+  <a class="btn" href="PM-OS-Investor-Deck.pptx" download>Download PPTX</a>
+</div></header>
+
+<div class="wrap">
+
+<!-- S1 -->
+<section class="slide" style="text-align:center;padding-top:60px;padding-bottom:60px;">
+  <span class="num">01 / 12</span>
+  <div class="kicker" style="color:var(--accent)">● research preview · live</div>
+  <h1>PM OS</h1>
+  <p style="font-size:20px;font-weight:600;color:var(--accent);margin-top:12px;">The AI that remembers your product decisions — with receipts.</p>
+  <p class="sub" style="max-width:640px;margin:12px auto 0;">A role-based AI operating system for product managers: onboarding that builds a provenance-tagged brain, skills that cite it, and a loop that keeps the org honest.</p>
+  <div class="term" style="max-width:620px;margin:26px auto 0;text-align:left;">
+    <span class="p">~/pm-brain $ </span><span class="c">/ingest interview-mia-0702.md</span><br>
+    ✓ 6 claims added · 4 files updated · tagged <span class="pill doc">documented</span><br>
+    <span class="p">~/pm-brain $ </span><span class="c">ask "what did we decide on pricing?"</span><br>
+    → 05-12: usage-based pilot first · src: decisions/pricing.md
+  </div>
+  <p class="note">Vivek Ally · vivek@brainally.io · July 2026</p>
+</section>
+
+<!-- S2 -->
+<section class="slide"><span class="num">02 / 12</span>
+  <h2>The context tax</h2>
+  <p class="sub">Every AI session starts from zero — and the fixes on the market go stale.</p>
+  <div class="grid g2">
+    <div class="card">
+      <div class="tag" style="color:var(--muted)">WITHOUT PM OS — EVERY SESSION FROM SCRATCH</div>
+      <p style="font-style:italic;color:var(--muted)">“Let me remind you — we’re a B2B SaaS tool for data teams. Our persona is the data lead who owns activation. We’re freemium. Our big bet right now is…”</p>
+      <p style="margin-top:12px">• Context re-explained before every useful answer — outputs come back generic<br>• Product truth scattered across meetings, tickets and threads<br>• Static “context files” go stale — unmaintained, untrusted, uncited</p>
+    </div>
+    <div class="quote">“The biggest blocker to AI automation of companies is no longer the models… Now the blocker is the domain knowledge.”
+      <span class="attr">— Tom Blomfield, “Company Brain”, Y Combinator Requests for Startups, Summer 2026</span>
+    </div>
+  </div>
+  <div class="grid g3">
+    <div class="card"><div class="tag">every session</div><p>the context tax is paid again before the first useful answer</p></div>
+    <div class="card"><div class="tag">4+ tools</div><p>where one PM’s product truth lives — docs, tickets, chat, calls</p></div>
+    <div class="card"><div class="tag">0 receipts</div><p>AI outputs carry no provenance — trust collapses at review time</p></div>
+  </div>
+</section>
+
+<!-- S3 -->
+<section class="slide"><span class="num">03 / 12</span>
+  <h2>Why now</h2>
+  <p class="sub">Four forces converged in the last 18 months.</p>
+  <div class="grid g2">
+    <div class="card"><div class="tag">01</div><h3>Models stopped being the blocker</h3><p>YC’s own RFS says the constraint has moved from model quality to domain knowledge. The bottleneck is what the AI knows about you.</p><div class="src">ycombinator.com/rfs · Summer 2026</div></div>
+    <div class="card"><div class="tag">02</div><h3>The memory substrate became free</h3><p>Garry Tan open-sourced GBrain (MIT, Apr 2026) — ~5K stars in 24h. Mem0 raised $24M and is AWS Agent SDK’s default memory. Engines are commodity.</p><div class="src">github.com/garrytan/gbrain · techcrunch.com</div></div>
+    <div class="card"><div class="tag">03</div><h3>Capital is converging on context</h3><p>Glean $7.2B. Granola $125M at $1.5B — pivoting from notetaker to “enterprise AI context.” Dust $40M Series B (Sequoia).</p><div class="src">cnbc.com · techcrunch.com · sifted.eu</div></div>
+    <div class="card"><div class="tag">04</div><h3>PMs already pay for AI workflows</h3><p>mySecond $39/seat/mo · ChatPRD claims 100K+ PMs, bootstrapped · $49 skill packs. Willingness to pay is proven — compounding memory is not on offer.</p><div class="src">mysecond.ai · chatprd.ai</div></div>
+  </div>
+</section>
+
+<!-- S4 -->
+<section class="slide"><span class="num">04 / 12</span>
+  <h2>The onboarding is the brain</h2>
+  <p class="sub">One sitting in, the AI already knows your product — and can prove it.</p>
+  <div class="grid g3">
+    <div class="card"><div class="tag">01 · SEED</div><p>A guided interview plus your existing artifacts — Notion exports, Jira boards, transcripts — become 30–50 sourced claims in one sitting. No cold start.</p></div>
+    <div class="card"><div class="tag">02 · CITE</div><p>Core PM skills — PRD, discovery, strategy, meeting prep — load the brain first. Every output carries receipts: each claim links to its source.</p></div>
+    <div class="card"><div class="tag">03 · COMPOUND</div><p>Every run writes back. A weekly sweep flags drift and contradictions — like a decision a new interview just undermined.</p></div>
+  </div>
+  <div class="grid g2" style="align-items:stretch">
+    <div class="term" style="margin-top:14px">
+      <span class="c">## knowledge/users.md</span><br>
+      - activation drops at connector setup&nbsp; <span class="pill doc">documented</span><br>
+      - senior PMs now the primary adopters&nbsp; <span class="pill verbal">verbal</span><br>
+      - enterprise will pay extra for SSO&nbsp; <span class="pill hunch">hunch</span>
+    </div>
+    <div class="card" style="margin-top:14px"><h3>Trust hierarchy</h3><p>documented &gt; verbal &gt; hunch &gt; industry — in plain text, so you can override it.</p><p style="margin-top:12px;color:var(--accent);font-weight:700">Skill packs give your AI instructions. PM OS gives it evidence.</p></div>
+  </div>
+  <div class="strip">plain markdown in your repo · no vector DB · commits locally — never pushed anywhere you don’t control</div>
+</section>
+
+<!-- S5 -->
+<section class="slide"><span class="num">05 / 12</span>
+  <h2>Product: four phases, one compounding asset</h2>
+  <p class="sub">The brain is the wedge. The loop is the prize.</p>
+  <div class="grid g4">
+    <div class="card" style="border-color:var(--accent)"><div class="tag">PHASE 1</div><h3>Seed the brain</h3><p>Brain-seeded onboarding + cited core skills. Skills free · memory metered.</p><div class="src" style="color:var(--code)">now · research preview</div></div>
+    <div class="card"><div class="tag" style="color:var(--muted)">PHASE 2</div><h3>Self-feeding</h3><p>Connectors: meeting transcripts first, then Jira / Linear / Slack via MCP. Retention stops depending on user effort.</p><div class="src">months 3–6</div></div>
+    <div class="card"><div class="tag" style="color:var(--muted)">PHASE 3</div><h3>The first loop</h3><p>Weekly strategy-drift report: what shipped vs what was decided — flagged, cited, forwardable.</p><div class="src">months 6–9</div></div>
+    <div class="card"><div class="tag" style="color:var(--muted)">PHASE 4</div><h3>Org brain</h3><p>Per-source permissions, whoknows, adoption dashboard. From one PM to the whole product org.</p><div class="src">months 9+</div></div>
+  </div>
+  <p class="note"><strong style="color:var(--text)">Why this order is forced:</strong> the loop needs the brain as its reference model of “what should be happening.” Brain-first is also the better GTM — day-one value, data gravity, and it avoids shipping “another dashboard.” Maps to both YC RFS: Company Brain (Blomfield) → AI Operating System (Hu).</p>
+</section>
+
+<!-- S6 -->
+<section class="slide"><span class="num">06 / 12</span>
+  <h2>Market: honest math, big ceiling</h2>
+  <p class="sub">Bottom-up from observed pricing — cross-checked top-down. Every figure cited.</p>
+  <div class="grid g2" style="align-items:start">
+    <div>
+      <div class="stat"><span class="lbl">TAM</span><span class="big">$1–3.5B / yr</span><span class="what">every active PM on an AI PM-OS seat</span><span class="how">850K–2.6M PMs × ~$470/yr + 2–3× org tier [estimate]</span></div>
+      <div class="stat"><span class="lbl">SAM</span><span class="big">$95–140M / yr</span><span class="what">AI-forward, creator-reachable PMs</span><span class="how">~200–300K seats · ChatPRD’s 100K+ users = live proxy [estimate]</span></div>
+      <div class="stat"><span class="lbl">SOM</span><span class="big">$0.9–3.8M ARR</span><span class="what">24–36 months, no distribution advantage assumed</span><span class="how">2–8K paid seats at $29–39/mo [estimate]</span></div>
+    </div>
+    <div class="card"><div class="tag" style="color:var(--muted)">THE EXPANSION CEILING</div>
+      <p>The same context + skills + workflows foundation replicates to any role — legal, sales, finance.</p>
+      <p style="margin-top:10px;font-weight:700">Knowledge-management software:</p>
+      <p style="font-size:18px;color:var(--accent);font-weight:700">$20.2B (2024) → $62.2B (2033), 13.6% CAGR.</p>
+      <p style="margin-top:10px;color:var(--muted)">We earn the bigger TAM by winning one role first — investors should discount any TAM a team hasn’t earned a wedge in.</p>
+    </div>
+  </div>
+  <div class="honest">method: bottom-up from observed pricing (mySecond $39/seat · ChatPRD $15–29) cross-checked top-down · all sources in sources.md</div>
+</section>
+
+<!-- S7 -->
+<section class="slide"><span class="num">07 / 12</span>
+  <h2>Crowded lanes — one open square</h2>
+  <p class="sub">Funding verified per company; full table in sources.md.</p>
+  <div class="lane"><span class="l">PERSONAL PKM</span><span class="pl">Mem ($29M, stalled) · Rewind→Limitless (→Meta) · Tana ($25M)</span><span class="v">horizontal “second brains” neither retain nor monetize</span></div>
+  <div class="lane"><span class="l">ENTERPRISE BRAINS</span><span class="pl">Glean $7.2B · Dust $40M B · Granola $1.5B · Notion 100M users</span><span class="v">IT buyer, cloud gravity — too heavy for a PM IC</span></div>
+  <div class="lane"><span class="l">MEMORY INFRA</span><span class="pl">Mem0 · Supermemory · Zep · Letta · GBrain (MIT)</span><span class="v">commodity suppliers — our substrate, not our rivals</span></div>
+  <div class="lane"><span class="l">THE PM LANE</span><span class="pl">Huryn free · Gupta $49 · ChatPRD $15–29 · mySecond $39/seat</span><span class="v">skills everywhere — no compounding memory, no receipts</span></div>
+  <div class="open"><div class="t">THE OPEN SQUARE</div>
+    <p style="font-weight:700;font-size:15.5px">Provenance-tagged PM memory + the PM drift loop.</p>
+    <p style="font-size:13px;margin-top:6px">Nobody ships receipts. Nobody closes the loop.</p>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:8px">The window is narrow: Granola is building down from capture; mySecond can bolt on memory. Speed is the strategy.</p>
+  </div>
+</section>
+
+<!-- S8 -->
+<section class="slide"><span class="num">08 / 12</span>
+  <h2>Moat: the data, not the engine</h2>
+  <p class="sub">The engine is free for everyone — including us. Defensibility compounds above it.</p>
+  <div class="grid g4">
+    <div class="card"><div class="tag">CAPTURE</div><p>meetings · tickets · interviews</p></div>
+    <div class="card"><div class="tag">MEMORY</div><p>provenance-tagged · deduped · linked</p></div>
+    <div class="card"><div class="tag">OUTPUT</div><p>PRDs &amp; answers with receipts</p></div>
+    <div class="card"><div class="tag">TRUST</div><p>more usage → more capture ↺</p></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <p><strong>1 · Accumulated brain = switching cost</strong> <span style="color:var(--muted)">— history, graph and provenance don’t export as value</span></p>
+    <p style="margin-top:8px"><strong>2 · Vertical “should” encoding</strong> <span style="color:var(--muted)">— PM frameworks as the drift baseline; the step YC calls genuinely unsolved</span></p>
+    <p style="margin-top:8px"><strong>3 · Local-first trust</strong> <span style="color:var(--muted)">— your repo, your git, never pushed. The anti-cloud-brain posture</span></p>
+    <p style="margin-top:8px"><strong>4 · Org data gravity</strong> <span style="color:var(--muted)">— personal brains federate into the team brain; the brain earns the OS</span></p>
+  </div>
+  <div class="honest">not a moat: the memory engine itself — an MIT-free commodity. defensibility = data + loop + vertical.</div>
+</section>
+
+<!-- S9 -->
+<section class="slide"><span class="num">09 / 12</span>
+  <h2>Go-to-market: three motions, one funnel</h2>
+  <p class="sub">Escape the creator knife-fight by selling evidence, not instructions.</p>
+  <div class="grid g3">
+    <div class="card"><div class="tag">M1 · BOTTOM-UP</div><h3>The “receipts” demo</h3><p>Content built on the receipts demo vs ChatGPT amnesia. Skills free · email captured from day one. Consulting capped at ≤20% — every engagement dogfoods the product.</p></div>
+    <div class="card"><div class="tag">M2 · DESIGN PARTNERS</div><h3>Sell the loop upmarket</h3><p>Weekly drift report hand-built for 5 PM leads, then productized. Team pricing $200–500/mo. Different buyer, empty channel.</p></div>
+    <div class="card"><div class="tag">M3 · PRICING FLIP</div><h3>Skills free · memory metered</h3><p>Free: 25 memories, 1 project, all skills. $29–39/mo: unlimited memory + connectors + weekly sweep. Team tier lands with the loop.</p></div>
+  </div>
+  <div class="strip">content → free brain (first cited answer &lt; 45 min) → paid memory ($29–39/mo) → team loop ($200–500/mo)</div>
+</section>
+
+<!-- S10 -->
+<section class="slide"><span class="num">10 / 12</span>
+  <h2>Roadmap: every quarter has a kill criterion</h2>
+  <p class="sub">We fund the next phase with evidence, not momentum.</p>
+  <div class="row"><span class="when">M0–3</span><span class="h">Ship the wedge</span><span class="b">Interview + import + 6 cited skills. Thin viewer only if the falsification gate passes.</span><span class="g">gate: structured beats raw-dump (T1) · ≥3/10 pre-orders</span></div>
+  <div class="row"><span class="when">M3–6</span><span class="h">Self-feeding</span><span class="b">Meeting-transcript ingest, then Jira / Linear. 25 paying individuals.</span><span class="g">gate: first cited answer &lt; 45 min · wk-4 retention</span></div>
+  <div class="row"><span class="when">M6–9</span><span class="h">First loop</span><span class="b">Weekly strategy-drift report live with 5 design-partner teams.</span><span class="g">gate: report gets forwarded, not just read</span></div>
+  <div class="row"><span class="when">M9–12</span><span class="h">Org brain + raise</span><span class="b">Permissions, whoknows, adoption view. Seed raise on retention + loop case studies.</span><span class="g">gate: retention flat by cohort 3</span></div>
+</section>
+
+<!-- S11 -->
+<section class="slide"><span class="num">11 / 12</span>
+  <h2>Team</h2>
+  <p class="sub">[Placeholders — final bios in the shared deck]</p>
+  <div class="grid g2">
+    <div class="card"><h3>Vivek Ally — Founder</h3><p style="color:var(--muted)">[PM operating background, domain depth, proof of shipping.]</p><p class="src" style="color:var(--code)">vivek@brainally.io</p></div>
+    <div>
+      <div class="card"><h3>[Founding engineer]</h3><p style="color:var(--muted)">Profile sought: local-first tooling, TypeScript, agent infrastructure.</p></div>
+      <div class="card" style="margin-top:14px"><h3>[Advisors]</h3><p style="color:var(--muted)">One respected PM-community name materially changes the distribution math.</p></div>
+    </div>
+  </div>
+  <p class="note"><strong style="color:var(--text)">Why this team can win the square:</strong> encoding “what should be happening” for PMs requires PM domain depth — the one input the well-funded horizontal players don’t have.</p>
+</section>
+
+<!-- S12 -->
+<section class="slide"><span class="num">12 / 12</span>
+  <h2>The ask</h2>
+  <p class="sub">[Placeholders — to be completed before circulation]</p>
+  <div class="open" style="margin-top:8px"><p style="font-size:17px;font-weight:700">Raising $[ ____ ] pre-seed · [ __ ] months runway · closes at the org-brain gate (M9–12)</p></div>
+  <div class="grid g3">
+    <div class="card"><div class="tag">[60%]</div><h3>Product</h3><p>wedge → connectors → loop</p></div>
+    <div class="card"><div class="tag">[25%]</div><h3>Go-to-market</h3><p>receipts content · design partners</p></div>
+    <div class="card"><div class="tag">[15%]</div><h3>Operations</h3><p>infra · legal · buffer</p></div>
+  </div>
+  <div class="card" style="margin-top:14px"><div class="tag" style="color:var(--muted)">WHAT THIS BUYS</div>
+    <p style="font-weight:600">Wedge shipped + falsification gate passed · 25 paying PMs · drift loop live with 5 teams · $[ __ ]k ARR · a retention curve worth a seed round</p>
+  </div>
+</section>
+
+</div>
+<footer>
+  vivek@brainally.io · <a href="https://vivekally.github.io/pm-os-landing/">product research preview</a> · <a href="https://github.com/vivekally/pm-os-deck/blob/main/sources.md">every market claim cited</a> · July 2026
+</footer>
+</body>
+</html>
