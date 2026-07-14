@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirecting…</title>
+<script>
+  // SPA fallback for GitHub Pages: redirect deep links to the correct app
+  // preserving the path as a query param so the SPA router can pick it up.
+  var defined = ['/pm-os-landing/', '/law-os-deals/', '/law-os/'];
+  var p = location.pathname;
+  for (var i = 0; i < defined.length; i++) {
+    if (p.startsWith(defined[i])) {
+      // Redirect to the app's index.html — the SPA router handles the rest
+      // GitHub Pages serves index.html for exact dir hits but 404s for sub-paths,
+      // so we encode the full path in a sessionStorage key the SPA can read.
+      sessionStorage.setItem('spa-redirect', p + location.search + location.hash);
+      location.replace(defined[i]);
+      break;
+    }
+  }
+</script>
+</head>
+<body>
+<p>Redirecting…</p>
+</body>
+</html>

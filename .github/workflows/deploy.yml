@@ -38,8 +38,9 @@ jobs:
         run: |
           mkdir -p _site
 
-          # Root hub page
+          # Root hub page + SPA fallback
           cp index.html _site/
+          cp 404.html _site/
           cp README.md _site/
 
           # PM OS Landing (Vite build output)
@@ -57,8 +58,6 @@ jobs:
           # PM OS Deck (static files, already built)
           cp -r pm-os-deck _site/pm-os-deck
 
-          # Top-level 404 fallback
-          cp index.html _site/404.html
 
       - uses: actions/configure-pages@v5
         with:
