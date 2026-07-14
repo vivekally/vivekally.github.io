@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Intelligence · 2026 — The market, and the minds behind it</title>
+<meta name="description" content="Two companion reports on AI in 2026: the AI Technology Stack Landscape Report (12 layers, 97 companies) and the State of the Labs Briefing (22 labs, 4 doctrines). Independent, fact-checked, refreshed July 13, 2026.">
+<meta property="og:title" content="AI Intelligence · 2026">
+<meta property="og:description" content="Where the value sits. What the builders believe. Two companion reports on AI in 2026.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vivekally.github.io/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1F5FA;&#xFE0F;</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0b0d11; color:#d4d8e2; font-family:Syne,sans-serif; min-height:100vh; }
+  .mono { font-family:'JetBrains Mono',monospace; }
+  .wrap { max-width:1120px; margin:0 auto; padding:4.5rem 2.5rem 3rem; }
+  .eyebrow { font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:#6b7285; margin-bottom:1.6rem; }
+  .eyebrow b { color:#5ee7c4; font-weight:500; }
+  h1 { font-family:'DM Serif Display',serif; font-weight:400; font-size:3.4rem; line-height:1.08; color:#f0f2f7; margin-bottom:1.1rem; }
+  h1 em { font-style:italic; color:#5ee7c4; }
+  .sub { font-size:1.02rem; line-height:1.65; color:#8b93a5; max-width:640px; margin-bottom:3.2rem; }
+  .sub b { color:#d4d8e2; }
+  .shelf { display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; margin-bottom:3rem; }
+  .card { border-radius:14px; overflow:hidden; text-decoration:none; display:block; transition:transform .15s, box-shadow .15s; border:1px solid rgba(255,255,255,0.09); }
+  .card:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,0.35); }
+  /* Card 1 — stack report, in its own dark instrument language */
+  .card-stack { background:linear-gradient(160deg,#111318,#0a0c10); padding:2.1rem 2.1rem 1.8rem; }
+  .card-stack .tag { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; color:#5ee7c4; border:1px solid rgba(94,231,196,0.3); border-radius:3px; padding:0.25rem 0.55rem; display:inline-block; margin-bottom:1.3rem; }
+  .card-stack h2 { font-family:'DM Serif Display',serif; font-weight:400; font-size:1.85rem; line-height:1.15; color:#f0f2f7; margin-bottom:0.7rem; }
+  .card-stack h2 em { font-style:italic; color:#5ee7c4; }
+  .card-stack p { font-size:0.86rem; line-height:1.6; color:#8b93a5; margin-bottom:1.4rem; }
+  .layerstrip { display:flex; gap:3px; margin-bottom:1.4rem; }
+  .layerstrip span { height:7px; flex:1; border-radius:2px; }
+  .stats { display:flex; gap:1.5rem; margin-bottom:1.5rem; }
+  .stat .n { font-family:'JetBrains Mono',monospace; font-size:1.05rem; color:#e8ebf2; font-weight:600; }
+  .stat .l { font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; color:#6b7285; margin-top:0.2rem; }
+  .card-stack .stat .n { color:#5ee7c4; }
+  .cta { font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .card-stack .cta { color:#5ee7c4; }
+  .fresh { font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#6b7285; float:right; margin-top:0.15rem; }
+  /* Card 2 — labs briefing, in its paper editorial language */
+  .card-labs { background:#f3f5f2; padding:2.1rem 2.1rem 1.8rem; }
+  .card-labs .tag { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; color:#0e6b52; border:1px solid rgba(14,107,82,0.35); border-radius:3px; padding:0.25rem 0.55rem; display:inline-block; margin-bottom:1.3rem; }
+  .card-labs h2 { font-family:-apple-system,'Helvetica Neue',Arial,sans-serif; font-weight:800; font-size:1.8rem; line-height:1.08; letter-spacing:-0.02em; color:#171d1a; margin-bottom:0.7rem; }
+  .card-labs p { font-family:Charter,Georgia,serif; font-size:0.92rem; line-height:1.6; color:#4a524d; margin-bottom:1.4rem; }
+  .doctrinestrip { display:flex; margin-bottom:1.4rem; height:7px; border-radius:2px; overflow:hidden; }
+  .doctrinestrip span { flex:1; }
+  .card-labs .stat .n { color:#0e6b52; }
+  .card-labs .stat .l { color:#7c8480; }
+  .card-labs .cta { color:#0e6b52; }
+  .card-labs .fresh { color:#8b938a; }
+  /* Crosswalk */
+  .cross { border-top:1px solid rgba(255,255,255,0.08); padding-top:2.4rem; display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; }
+  .cross h3 { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:#5ee7c4; margin-bottom:0.7rem; }
+  .cross p { font-size:0.88rem; line-height:1.65; color:#8b93a5; }
+  .cross b { color:#d4d8e2; font-weight:600; }
+  .foot { margin-top:3rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#4a5162; letter-spacing:0.08em; line-height:1.8; }
+  @media (max-width:760px){ .shelf,.cross{grid-template-columns:1fr} h1{font-size:2.4rem} .wrap{padding:3rem 1.4rem 2rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Independent research · <b>Refreshed July 13, 2026</b> · vivekally.github.io</div>
+  <h1>The market, <em>and the minds</em> behind it.</h1>
+  <p class="sub">Two companion reports on AI in 2026. The <b>Stack Landscape</b> maps where the money and the moats sit, layer by layer. The <b>Labs Briefing</b> maps what the people building it actually believe. Read together, they answer: where is the value, and which way is it moving?</p>
+
+  <div class="shelf">
+    <a class="card card-stack" href="https://vivekally.github.io/ai-stack-report/">
+      <span class="fresh">R3 · JUL 13 2026</span>
+      <span class="tag">01 · SUPPLY SIDE</span>
+      <h2>The AI Technology Stack<br><em>Definitive Landscape Report</em></h2>
+      <p>12 layers from silicon to verticals. Competitive tables, market sizing, funding metrics, strategic gaps, company knowledge graph.</p>
+      <div class="layerstrip">
+        <span style="background:#ff6b6b"></span><span style="background:#ff9f43"></span><span style="background:#ffd32a"></span><span style="background:#48dbfb"></span><span style="background:#54a0ff"></span><span style="background:#a29bfe"></span><span style="background:#fd79a8"></span><span style="background:#00cec9"></span><span style="background:#6ab04c"></span><span style="background:#badc58"></span><span style="background:#e056fd"></span><span style="background:#f9ca24"></span>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">12</div><div class="l">Layers</div></div>
+        <div class="stat"><div class="n">97</div><div class="l">Companies</div></div>
+        <div class="stat"><div class="n">$2T+</div><div class="l">Ecosystem</div></div>
+        <div class="stat"><div class="n">19</div><div class="l">Fact-checks</div></div>
+      </div>
+      <span class="cta">Open the stack map &rarr;</span>
+    </a>
+
+    <a class="card card-labs" href="https://vivekally.github.io/ai-labs-briefing-2026/">
+      <span class="fresh">JUL 13 2026 · FACT-CHECKED</span>
+      <span class="tag">02 · DEMAND SIDE</span>
+      <h2>One consensus,<br>four doctrines</h2>
+      <p>What 22 frontier labs are actually building — where they contradict one another, where they quietly agree, and who is betting against LLMs entirely.</p>
+      <div class="doctrinestrip">
+        <span style="background:#2a78d6"></span><span style="background:#199e70"></span><span style="background:#c98500"></span><span style="background:#008300"></span>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">22</div><div class="l">Labs</div></div>
+        <div class="stat"><div class="n">4</div><div class="l">Doctrines</div></div>
+        <div class="stat"><div class="n">$2B+</div><div class="l">Non-LLM bets</div></div>
+        <div class="stat"><div class="n">6</div><div class="l">Sections</div></div>
+      </div>
+      <span class="cta">Open the briefing &rarr;</span>
+    </a>
+  </div>
+
+  <div class="cross">
+    <div>
+      <h3>Read the stack first if&hellip;</h3>
+      <p>you're deciding <b>where to build or invest</b>. It ranks every layer's players, sizes the markets, and flags the gaps worth funding, from bootstrappable to deep-pocketed.</p>
+    </div>
+    <div>
+      <h3>Read the labs first if&hellip;</h3>
+      <p>you're deciding <b>what to believe</b>. It maps the strategic bets of the 22 labs that set the direction the entire stack has to follow.</p>
+    </div>
+  </div>
+
+  <div class="foot">BOTH REPORTS: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · INLINE CORRECTIONS · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
+</div>
+</body>
+</html>
