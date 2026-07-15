@@ -52,7 +52,7 @@ this public repo (see CLAUDE.md security policy). Verified 2026-07-09 unless not
 | Up to 2.6M LinkedIn "Product Manager" title holders | [LLCBuddy statistics](https://llcbuddy.com/data/product-management-statistics/) |
 | ARPU anchor ~$470/yr | Derived from observed pricing: mySecond $39/mo, ChatPRD $15–29/mo `[Estimate]` |
 | TAM $1–3.5B/yr · SAM $95–140M/yr · SOM $0.9–3.8M ARR | `[Estimate]` — derivation in [research/market-research.md §2](../research/market-research.md) |
-| Knowledge-management software $20.15B (2024) → $62.15B (2033), 13.6% CAGR | [SkyQuest](https://www.skyquestt.com/report/knowledge-management-software-market); alternate higher series: [MRFR](https://www.marketresearchfuture.com/reports/knowledge-management-software-market-4193) |
+| Knowledge-management software $20.15B (2024) → $62.15B (2033), 13.6% CAGR | [Grand View Research](https://www.grandviewresearch.com/industry-analysis/knowledge-management-software-market-report); alternate higher series: [SkyQuest](https://www.skyquestt.com/report/knowledge-management-software-market) ($34.99B 2024 → $92.45B 2033, 11.4% CAGR), [MRFR](https://www.marketresearchfuture.com/reports/knowledge-management-software-market-4193) |
 | PM-software category reports ($6–35B for 2025) are low-confidence | Range across [WiseGuy](https://www.wiseguyreports.com/reports/product-management-software-market), [Dataintelo](https://dataintelo.com/report/global-product-management-software-market) et al. — flagged, not led with |
 
 ## Slide 7 — Competition
