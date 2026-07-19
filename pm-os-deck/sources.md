@@ -4,6 +4,7 @@ Every externally sourced claim in the deck, mapped slide by slide. Derivations m
 `[Estimate]` are ours; method in [research/market-research.md](../research/market-research.md).
 Notion sources are cited as `[Notion: <page title>]` — links intentionally never written into
 this public repo (see CLAUDE.md security policy). Verified 2026-07-09 unless noted.
+Slide numbers follow the live web deck (14 slides as of 2026-07-19).
 
 ---
 
@@ -44,7 +45,14 @@ this public repo (see CLAUDE.md security policy). Verified 2026-07-09 unless not
 | Phase sequencing rationale (brain wedge → loop prize) | [research/strategy-eval.md](../research/strategy-eval.md); `[Notion: Company Brain vs AI Operating System (YC RFS) + where gbrain fits]` |
 | Diana Hu loop language ("compares it to what should be happening, and adjusts") | [ycombinator.com/rfs](https://www.ycombinator.com/rfs) |
 
-## Slide 6 — Market
+## Slide 6 — Direction · Slide 7 — Memory layers
+
+| Claim | Source |
+|---|---|
+| Direction mindmap (Onboarding / Brain / OS) | Own product framing — no external claims |
+| Nested memory-layers framing (session ⊂ project ⊂ personal ⊂ org) | Adapted from WorkLLM's five-layer chat memory model — [workllm.io/product/organization-memory](https://workllm.io/product/organization-memory). Their thread/folder scopes dropped (chat-app UI constructs); provenance tagging and run write-back are PM OS design, absent from their model |
+
+## Slide 8 — Market
 
 | Claim | Source |
 |---|---|
@@ -55,7 +63,7 @@ this public repo (see CLAUDE.md security policy). Verified 2026-07-09 unless not
 | Knowledge-management software $20.15B (2024) → $62.15B (2033), 13.6% CAGR | [Grand View Research](https://www.grandviewresearch.com/industry-analysis/knowledge-management-software-market-report); alternate higher series: [SkyQuest](https://www.skyquestt.com/report/knowledge-management-software-market) ($34.99B 2024 → $92.45B 2033, 11.4% CAGR), [MRFR](https://www.marketresearchfuture.com/reports/knowledge-management-software-market-4193) |
 | PM-software category reports ($6–35B for 2025) are low-confidence | Range across [WiseGuy](https://www.wiseguyreports.com/reports/product-management-software-market), [Dataintelo](https://dataintelo.com/report/global-product-management-software-market) et al. — flagged, not led with |
 
-## Slide 7 — Competition
+## Slide 9 — Competition
 
 | Claim | Source |
 |---|---|
@@ -71,7 +79,7 @@ this public repo (see CLAUDE.md security policy). Verified 2026-07-09 unless not
 | Huryn pm-brain free MIT; pm-skills 11K+ stars | [github.com/phuryn/pm-brain](https://github.com/phuryn/pm-brain); [Product Compass](https://www.productcompass.pm/p/pm-brain-os) |
 | mySecond founder ex-Aha! | [mysecond.ai](https://mysecond.ai/); [Maven course page](https://maven.com/ron-yang/claude-code-os-product-managers) |
 
-## Slide 8 — Moat
+## Slide 10 — Moat
 
 | Claim | Source |
 |---|---|
@@ -79,14 +87,14 @@ this public repo (see CLAUDE.md security policy). Verified 2026-07-09 unless not
 | Encoding "what should happen" as the unsolved step | Analysis in `[Notion: Company Brain vs AI Operating System (YC RFS) + where gbrain fits]`, grounded in both RFS texts |
 | GBrain graph worth +31.4 P@5; LongMemEval R@5 97.6% (substrate quality context) | `[Notion: 2 · Backend Technical Reference]`; [Digg](https://digg.com/ai/82u1xlg1) — snapshot figures, re-verify before quoting live |
 
-## Slide 9 — GTM · Slide 10 — Roadmap
+## Slide 11 — GTM · Slide 12 — Roadmap
 
 | Claim | Source |
 |---|---|
 | Motions, funnel, pricing flip, kill criteria | [research/strategy-eval.md](../research/strategy-eval.md) §5–6 `[Estimate/plan]` |
 | T1 falsification gate | Repo TODOS.md (pre-existing project gate) |
 
-## Slides 11–12 — Team / Ask
+## Slides 13–14 — Team / Ask
 
 Placeholders by design — no external claims.
 
