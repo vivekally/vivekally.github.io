@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PM OS — Skill layer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070A11; --chrome:#0A0E16; --panel:#141B29; --panel2:#0B111C;
+  --surface:#0F1420; --surface2:#141B29;
+  --line:#1B2230; --line2:#232C3E; --line3:#1E2738;
+  --text:#EAF1FB; --muted:#6B7890; --faint:#566380;
+  --accent:#3DDC84; --code:#7FE8B0;
+  --doc:#7FE8B0; --verbal:#5BC0EB; --hunch:#C9A227; --industry:#8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;}
+::selection{background:rgba(61,220,132,.25);}
+
+/* CHROME */
+.app-chrome{display:flex;align-items:center;gap:7px;padding:10px 16px;background:var(--chrome);border-bottom:1px solid var(--line);flex-shrink:0;}
+.dot{width:10px;height:10px;border-radius:50%;background:#39435A;}
+.app-url{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);}
+.app-url em{color:var(--muted);font-style:normal;}
+.chrome-right{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:#3A455C;}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;height:46px;border-bottom:1px solid var(--line);flex-shrink:0;}
+.topbar-logo{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);font-weight:500;padding:0 18px;border-right:1px solid var(--line);height:100%;display:flex;align-items:center;}
+.topbar-logo span{color:var(--faint);}
+.brain-pill{display:flex;align-items:center;gap:7px;padding:0 16px;font-size:12px;color:var(--muted);}
+.brain-pill .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);}
+.brain-pill code{font-family:'JetBrains Mono',monospace;color:var(--code);font-size:11.5px;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;padding:0 16px;}
+.stats-mini{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);}
+.stats-mini b{color:var(--muted);}
+
+/* LAYOUT */
+.app-body{display:flex;flex:1;min-height:0;overflow:hidden;}
+
+/* LEFT: SKILL CATALOG */
+.catalog{width:248px;border-right:1px solid var(--line);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+.cat-search{padding:12px 14px;border-bottom:1px solid var(--line);}
+.cat-search input{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:7px;padding:8px 11px;font-size:12.5px;color:var(--text);font-family:'Inter',sans-serif;outline:none;}
+.cat-search input:focus{border-color:var(--accent);}
+.cat-search input::placeholder{color:var(--faint);}
+.cat-list{overflow-y:auto;flex:1;padding:8px 8px 16px;}
+.plugin-group{margin-top:12px;}
+.plugin-h{font-size:9.5px;letter-spacing:.1em;color:var(--faint);font-family:'JetBrains Mono',monospace;text-transform:uppercase;padding:6px 8px 5px;display:flex;justify-content:space-between;}
+.plugin-h .pc{color:#3A455C;}
+.cmd-row{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:7px;cursor:pointer;transition:background .1s;}
+.cmd-row:hover{background:var(--panel);}
+.cmd-row.active{background:#131D30;}
+.cmd-row .dotc{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--faint);}
+.cmd-row.active .dotc{background:var(--accent);}
+.cmd-row .cn{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--muted);}
+.cmd-row.active .cn{color:var(--code);}
+.cmd-row .cd{font-size:10px;color:var(--faint);margin-left:auto;}
+
+/* CENTER */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;border-right:1px solid var(--line);}
+.run-header{padding:14px 22px;border-bottom:1px solid var(--line);flex-shrink:0;}
+.run-title{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.run-title .rc{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--code);font-weight:500;}
+.run-title .badge{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--muted);background:var(--surface2);border:1px solid var(--line2);border-radius:4px;padding:2px 7px;}
+.run-title .status{margin-left:auto;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--faint);}
+.run-title .status.done{color:var(--code);}
+/* CHAIN PIPELINE */
+.chain{display:flex;align-items:center;gap:0;flex-wrap:wrap;}
+.chain .step{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);padding:3px 8px;border:1px solid var(--line2);border-radius:5px;background:var(--panel2);transition:all .25s;}
+.chain .step.run{color:var(--accent);border-color:rgba(61,220,132,.4);box-shadow:0 0 0 1px rgba(61,220,132,.12);}
+.chain .step.done{color:#9CB4D4;border-color:var(--line2);}
+.chain .step .sd{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.chain .arr{color:#3A455C;margin:0 5px;font-size:11px;}
+
+/* CONTEXT LOADED */
+.ctx-loaded{padding:11px 22px;border-bottom:1px solid var(--line);background:#080C14;flex-shrink:0;display:flex;align-items:flex-start;gap:10px;}
+.ctx-loaded .cl-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:.08em;white-space:nowrap;padding-top:2px;}
+.ctx-files{display:flex;flex-wrap:wrap;gap:6px;}
+.ctx-file{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#9CB4D4;background:var(--panel);border:1px solid var(--line2);border-radius:5px;padding:2px 7px;display:flex;align-items:center;gap:5px;}
+.ctx-file .pd{width:6px;height:6px;border-radius:2px;}
+.pd.documented{background:var(--doc);} .pd.verbal{background:var(--verbal);} .pd.hunch{background:var(--hunch);}
+
+/* OUTPUT */
+.output{flex:1;overflow-y:auto;padding:20px 22px;}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--faint);text-align:center;}
+.empty .bi{font-size:30px;opacity:.4;}
+.empty p{font-size:13px;max-width:280px;line-height:1.55;}
+.typing{display:flex;gap:4px;align-items:center;padding:6px 0;}
+.td{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:tdot .9s ease-in-out infinite;}
+.td:nth-child(2){animation-delay:.15s;} .td:nth-child(3){animation-delay:.3s;}
+@keyframes tdot{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+
+.doc-out{font-size:13.5px;color:#C6D2E6;line-height:1.7;}
+.doc-out h4{font-size:13px;font-weight:600;color:var(--text);margin:16px 0 7px;}
+.doc-out h4:first-child{margin-top:0;}
+.doc-out p{margin-bottom:10px;}
+.doc-out strong{color:var(--text);}
+.doc-out ul{margin:6px 0 12px 18px;} .doc-out li{margin-bottom:5px;}
+.doc-out code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--panel2);border:1px solid var(--line2);border-radius:3px;padding:1px 5px;color:var(--code);}
+.doc-out .cite{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);background:#0A1018;border:1px solid var(--line2);border-radius:3px;padding:0 5px;margin-left:4px;}
+.doc-out blockquote{border-left:2px solid var(--line2);padding:4px 0 4px 14px;margin:10px 0;color:var(--muted);font-size:13px;}
+.tree-box{background:var(--panel2);border:1px solid var(--line3);border-radius:8px;padding:13px 15px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;color:#AEBBD0;margin:6px 0 12px;}
+.tree-box .br{color:var(--accent);}
+.tree-box .lf{color:var(--muted);}
+.flag{display:inline-block;font-size:10px;font-family:'JetBrains Mono',monospace;border-radius:3px;padding:1px 6px;margin-left:6px;}
+.flag.warn{color:var(--hunch);background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.25);}
+
+/* SUGGESTED NEXT */
+.next-row{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+.next-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:.08em;margin-bottom:9px;}
+.next-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.next-chip{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--code);background:var(--panel);border:1px solid var(--line2);border-radius:6px;padding:6px 12px;cursor:pointer;transition:border-color .15s;}
+.next-chip:hover{border-color:var(--accent);}
+.next-chip .why{color:var(--faint);font-family:'Inter',sans-serif;font-size:10.5px;margin-left:6px;}
+
+/* PROMPT BAR */
+.prompt-bar{padding:11px 22px;border-top:1px solid var(--line);flex-shrink:0;}
+.prompt-inner{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line2);border-radius:9px;padding:8px 12px;}
+.prompt-inner:focus-within{border-color:var(--accent);}
+.prompt-inner .slash{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:13px;}
+.prompt-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:13px;font-family:'JetBrains Mono',monospace;}
+.prompt-input::placeholder{color:var(--faint);}
+.btn-run{background:var(--accent);color:#070A11;border:none;border-radius:6px;padding:7px 16px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-run:disabled{opacity:.4;cursor:not-allowed;}
+
+/* RIGHT RAIL */
+.rail{width:262px;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;}
+.rail-sec{padding:16px 16px;border-bottom:1px solid var(--line);}
+.rail-h{font-size:10px;letter-spacing:.1em;color:var(--faint);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:12px;}
+.skill-card-name{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--code);margin-bottom:5px;}
+.skill-card-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:11px;}
+.fw-tag{display:inline-block;font-size:10.5px;color:#AEBBD0;background:var(--panel);border:1px solid var(--line2);border-radius:5px;padding:3px 8px;}
+.chain-list{display:flex;flex-direction:column;gap:2px;}
+.chain-li{display:flex;align-items:center;gap:9px;font-size:11.5px;color:var(--muted);padding:5px 0;font-family:'JetBrains Mono',monospace;}
+.chain-li .ci{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg);}
+.chain-li.done .ci{background:var(--accent);border-color:var(--accent);}
+.chain-li.done{color:#9CB4D4;}
+.history{display:flex;flex-direction:column;gap:1px;}
+.hist-row{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:6px;cursor:pointer;}
+.hist-row:hover{background:var(--panel);}
+.hist-row .hd{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--accent);}
+.hist-row .ht{flex:1;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hist-row .hm{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--faint);}
+
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important;}}
+@media(max-width:1080px){.rail{display:none;}}
+@media(max-width:760px){.catalog{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- CHROME -->
+<div class="app-chrome" aria-hidden="true">
+  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+  <span class="app-url">~/datapulse-brain<em> &middot; pm-skills</em></span>
+  <span class="chrome-right">research preview</span>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">pm<span>-</span>os</div>
+  <div class="brain-pill"><span class="pulse"></span> Brain loaded <code>~/datapulse-brain</code></div>
+  <div class="topbar-right">
+    <span class="stats-mini"><b>68</b> skills &middot; <b>9</b> plugins</span>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="app-body">
+
+  <!-- LEFT: CATALOG -->
+  <aside class="catalog" aria-label="Skill catalog">
+    <div class="cat-search"><input type="text" id="catSearch" placeholder="Search skills &amp; commands…" aria-label="Search skills" oninput="filterCat(this.value)"></div>
+    <div class="cat-list" id="catList"></div>
+  </aside>
+
+  <!-- CENTER -->
+  <main class="main">
+    <div class="run-header">
+      <div class="run-title">
+        <span class="rc" id="runCmd">/discover</span>
+        <span class="badge" id="runPlugin">pm-product-discovery</span>
+        <span class="status" id="runStatus">idle</span>
+      </div>
+      <div class="chain" id="runChain" aria-label="Skill chain"></div>
+    </div>
+
+    <div class="ctx-loaded">
+      <span class="cl-lbl">CONTEXT &rarr;</span>
+      <div class="ctx-files" id="ctxFiles"></div>
+    </div>
+
+    <div class="output" id="output" role="log" aria-live="polite">
+      <div class="empty" id="emptyState">
+        <div class="bi">&#9889;</div>
+        <p>Pick a command on the left and hit <strong>Run</strong>. Each one loads your PM Brain first, then applies a framework &mdash; and tells you what to run next.</p>
+      </div>
+      <div class="doc-out" id="docOut" style="display:none"></div>
+    </div>
+
+    <div class="prompt-bar">
+      <div class="prompt-inner">
+        <span class="slash">/</span>
+        <input class="prompt-input" id="promptInput" value="discover invite-link friction blocking team activation" aria-label="Command input" onkeydown="if(event.key==='Enter')runCurrent()">
+        <button class="btn-run" id="runBtn" onclick="runCurrent()">Run</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- RIGHT RAIL -->
+  <aside class="rail" aria-label="Run details">
+    <div class="rail-sec">
+      <div class="rail-h">Active skill</div>
+      <div class="skill-card-name" id="railName">/discover</div>
+      <div class="skill-card-desc" id="railDesc"></div>
+      <span class="fw-tag" id="railFw"></span>
+    </div>
+    <div class="rail-sec">
+      <div class="rail-h">Skill chain</div>
+      <div class="chain-list" id="railChain"></div>
+    </div>
+    <div class="rail-sec">
+      <div class="rail-h">Run history</div>
+      <div class="history" id="history">
+        <div class="hist-row"><span class="hd"></span><span class="ht">/north-star</span><span class="hm">12m</span></div>
+        <div class="hist-row"><span class="hd"></span><span class="ht">/prep vp-product</span><span class="hm">1h</span></div>
+        <div class="hist-row"><span class="hd"></span><span class="ht">/review (Fri sweep)</span><span class="hm">3d</span></div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- FALLBACK: vendor/pretext.js missing, using CDN -->
+<script type="module">
+import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
+window.__pretext={prepare,layout};
+</script>
+
+<script>
+// ── BRAIN (what's loaded) ─────────────────────────────────────────────
+const BRAIN={
+  'knowledge/product.md':'documented',
+  'knowledge/users.md':'documented',
+  'knowledge/strategy.md':'documented',
+  'hypotheses/activation.md':'hunch',
+  'decisions/plg-vs-enterprise.md':'verbal',
+  'stakeholders/vp-product.md':'verbal',
+};
+
+// ── COMMAND CATALOG (real pm-skills shape) ────────────────────────────
+const CMDS={
+  '/discover':{plugin:'pm-product-discovery',fw:'Opportunity Solution Tree · Teresa Torres',
+    desc:'Turn a fuzzy problem into testable bets, grounded in your ICP and current evidence.',
+    chain:['brainstorm-ideas','identify-assumptions','prioritize-assumptions','brainstorm-experiments'],
+    ctx:['knowledge/users.md','hypotheses/activation.md','knowledge/strategy.md'],
+    next:[['/risk','stress-test the top bet'],['/write-prd','spec the winner']],
+    out:`<h4>Opportunity Solution Tree — invite-link friction</h4>
+<p>Desired outcome (from <code>knowledge/strategy.md</code><span class="cite">documented</span>): lift <strong>week-1 activation</strong> from 28% → 43%.</p>
+<div class="tree-box"><span class="br">◆ outcome</span> week-1 activation +15pt
+  <span class="lf">├─ opportunity</span> teams stall before the 2nd seat joins
+  <span class="lf">│   ├─ solution</span> one-click invite link <span class="flag warn">riskiest</span>
+  <span class="lf">│   └─ solution</span> pre-seeded sample workspace
+  <span class="lf">└─ opportunity</span> single user never connects a source
+  <span class="lf">    └─ solution</span> guided connect-a-source checklist</div>
+<h4>Riskiest assumptions (prioritized)</h4>
+<ul>
+<li><strong>A1 — desirability:</strong> teams actually want to invite before seeing value. <em>Evidence: none yet</em> <span class="cite">hunch</span> — pulled from <code>hypotheses/activation.md</code>.</li>
+<li><strong>A2 — feasibility:</strong> invite link can bypass SSO provisioning for trial teams.</li>
+</ul>
+<h4>Experiments to de-risk A1 first</h4>
+<ul>
+<li>Pretotype: add an invite CTA that 404s to a "coming soon" — measure click-through as demand signal (Savoia).</li>
+<li>5 activation interviews with stalled teams from last week's cohort.</li>
+</ul>
+<blockquote>Note: this overlaps your <code>decisions/plg-vs-enterprise.md</code><span class="cite">verbal</span> — bottom-up PLG means invite friction is load-bearing. Worth confirming before you build.</blockquote>`},
+
+  '/north-star':{plugin:'pm-data-analytics',fw:'North Star Framework · Amplitude',
+    desc:'Define a north star with input metrics and guardrails for the current bet.',
+    chain:['metric-tree','input-metrics','guardrails'],
+    ctx:['knowledge/strategy.md','knowledge/product.md'],
+    next:[['/write-prd','scope the bet'],['/risk','check viability']],
+    out:`<h4>North Star — DataPulse</h4>
+<p>Pulled <code>north_star</code> and <code>current</code> from <code>knowledge/strategy.md</code><span class="cite">documented</span>.</p>
+<div class="tree-box"><span class="br">★ North Star</span> week-1 activation rate · now 28% → target 43%
+  <span class="lf">├─ input</span> % connect a data source (step 1)
+  <span class="lf">├─ input</span> % reach first funnel view (aha)
+  <span class="lf">└─ input</span> median time-to-aha (min)</div>
+<h4>Guardrails (must not regress)</h4>
+<ul>
+<li><code>free_trial_conversion_rate</code> — don't trade activation for paid conversions</li>
+<li><code>cs_ticket_rate</code> — a noisier onboarding shouldn't spike support</li>
+</ul>
+<p>Flagged: you track MRR/churn but those are <strong>lagging</strong> — kept out of the input layer on purpose.</p>`},
+
+  '/write-prd':{plugin:'pm-execution',fw:'Product Requirements · Marty Cagan',
+    desc:'Draft a PRD scoped to the bet and ICP already in your brain.',
+    chain:['problem-statement','scope','success-metrics','open-questions'],
+    ctx:['knowledge/users.md','knowledge/strategy.md','hypotheses/activation.md'],
+    next:[['/risk','four big risks'],['/plan-launch','GTM the release']],
+    out:`<h4>PRD — Onboarding redesign (v0.1 draft)</h4>
+<p><strong>Problem.</strong> Data leads at 50–500p B2B SaaS <span class="cite">knowledge/users.md</span> can't see where week-1 users drop off; activation sits at 28% <span class="cite">documented</span>, below the 43% target.</p>
+<p><strong>Scope (v1).</strong></p>
+<ul>
+<li>In: guided setup checklist, contextual tooltips at connect-a-source, progress persistence</li>
+<li>Out: email re-engagement (separate workstream), mobile onboarding (v2)</li>
+</ul>
+<h4>Success metrics</h4>
+<ul>
+<li><code>activation_rate_week1</code> — primary, target ≥43%</li>
+<li><code>time_to_aha</code> — secondary, target &lt;12 min</li>
+<li><code>step2_completion</code> — guardrail, must not drop</li>
+</ul>
+<h4>Open questions</h4>
+<ul>
+<li>Gate the dashboard until setup is done, or show an empty state? (needs eng)</li>
+<li>Which step is the real drop-off? <code>hypotheses/activation.md</code> guesses connect-a-source <span class="cite">hunch</span> — confirm with funnel data before locking order.</li>
+</ul>`},
+
+  '/strategy':{plugin:'pm-product-strategy',fw:'Good Strategy / Bad Strategy · Rumelt',
+    desc:'Pressure-test direction: diagnosis, guiding policy, coherent actions.',
+    chain:['diagnosis','guiding-policy','coherent-actions'],
+    ctx:['knowledge/strategy.md','decisions/plg-vs-enterprise.md'],
+    next:[['/discover','find the wedge'],['/north-star','instrument it']],
+    out:`<h4>Strategy kernel — activation</h4>
+<p><strong>Diagnosis.</strong> Growth is capped not by acquisition but by week-1 activation (28%). Bottom-up PLG <span class="cite">decisions/plg-vs-enterprise.md</span> means a stalled first session is a lost account — there's no sales motion to recover it.</p>
+<p><strong>Guiding policy.</strong> Win the first session. Every roadmap item earns its slot by moving an activation input metric, not a vanity number.</p>
+<h4>Coherent actions</h4>
+<ul>
+<li>Rebuild onboarding around the connect-a-source → first-funnel path</li>
+<li>Defer anything that doesn't touch week-1 (dark mode, new chart types) to post-target</li>
+<li>Instrument the funnel before building, so the bet is falsifiable</li>
+</ul>
+<blockquote>Coherence check: your current bet aligns with the kernel. The riskiest gap is no funnel instrumentation yet — that's a dependency, not an option.</blockquote>`},
+
+  '/risk':{plugin:'pm-product-discovery',fw:'Four Big Risks · Cagan',
+    desc:'Five-area risk scan; opens hypothesis stubs for anything uncovered.',
+    chain:['value','usability','feasibility','viability','ethics'],
+    ctx:['knowledge/users.md','hypotheses/activation.md','knowledge/product.md'],
+    next:[['/discover','de-risk the top one'],['/write-prd','spec with risks noted']],
+    out:`<h4>Risk scan — onboarding redesign</h4>
+<ul>
+<li><strong>Value</strong> — will the checklist actually drive activation? <span class="flag warn">open</span> Only a hunch in <code>hypotheses/activation.md</code> <span class="cite">hunch</span>. Opened stub <code>hypotheses/checklist-value.md</code>.</li>
+<li><strong>Usability</strong> — can a data lead self-serve the connect step? Likely, but the connector format confuses people (from interviews) <span class="cite">documented</span>.</li>
+<li><strong>Feasibility</strong> — progress persistence needs server-side state. Confirm with eng.</li>
+<li><strong>Viability</strong> — fits PLG model <span class="cite">verbal</span>; no pricing conflict.</li>
+<li><strong>Ethics</strong> — no dark patterns; checklist must be skippable.</li>
+</ul>
+<p>Highest unaddressed risk: <strong>Value</strong>. Run <code>/discover</code> on it before committing the sprint.</p>`},
+
+  '/prioritize':{plugin:'pm-toolkit',fw:'RICE scoring',
+    desc:'Score and rank backlog items against the north star.',
+    chain:['gather-items','score-rice','rank'],
+    ctx:['knowledge/strategy.md','hypotheses/activation.md'],
+    next:[['/write-prd','spec the top item'],['/north-star','tie to metrics']],
+    out:`<h4>Backlog — RICE against week-1 activation</h4>
+<ul>
+<li><strong>[10] Guided setup checklist</strong> — R8 · I9 · C8 · E7. Directly on the primary bet.</li>
+<li><strong>[8] Tooltips at connect-a-source</strong> — R8 · I8 · C7 · E9. Low lift, hits the documented drop-off.</li>
+<li><strong>[6] Email re-engagement</strong> — R6 · I6 · C6 · E8. Good lever, out of v1 scope.</li>
+<li><strong>[3] Dark mode</strong> — R9 · I2 · C9 · E7. Zero activation lift. Defer.</li>
+</ul>
+<p>Recommendation: ship items 1 + 2 together — the tooltip without the checklist has diminishing returns.</p>`},
+
+  '/plan-launch':{plugin:'pm-go-to-market',fw:'Launch tiering · GTM',
+    desc:'Positioning, channels, timeline, and launch metrics for the release.',
+    chain:['positioning','channels','timeline','launch-metrics'],
+    ctx:['knowledge/product.md','knowledge/users.md'],
+    next:[['/stakeholder-update','brief the execs'],['/north-star','set launch KPI']],
+    out:`<h4>Launch plan — onboarding redesign (Tier 2)</h4>
+<p><strong>Positioning</strong> (for data leads <span class="cite">knowledge/users.md</span>): "See your activation drop-off in 10 minutes, not 10 days."</p>
+<h4>Channels</h4>
+<ul><li>In-app changelog + guided tour for existing trials</li><li>Lifecycle email to stalled week-1 cohort</li><li>Founder LinkedIn post (PLG audience)</li></ul>
+<h4>Timeline</h4>
+<ul><li>Wk 0: 10% cohort behind flag</li><li>Wk 1: read activation data, expand to 50% if input metrics move</li><li>Wk 2: GA + changelog</li></ul>
+<p><strong>Launch metric:</strong> week-1 activation in the treated cohort vs. control.</p>`},
+
+  '/prep':{plugin:'pm-toolkit',fw:'Stakeholder brief · PM Brain',
+    desc:'One-page brief before a meeting: open asks, last unresolved concern, questions.',
+    chain:['load-stakeholder','open-threads','suggested-questions'],
+    ctx:['stakeholders/vp-product.md','knowledge/strategy.md'],
+    next:[['/stakeholder-update','send the recap'],['/review','sweep the brain']],
+    out:`<h4>Prep — VP of Product</h4>
+<p>From <code>stakeholders/vp-product.md</code> <span class="cite">verbal</span>: reviews activation weekly; asked about it in every board prep.</p>
+<h4>Open threads</h4>
+<ul>
+<li>Last unresolved: wanted a falsifiable activation target before approving the sprint — now set (43%, instrumented).</li>
+<li>Pending ask: which step is the real drop-off (still a hunch — flag it honestly).</li>
+</ul>
+<h4>Suggested questions to bring</h4>
+<ul><li>"If the 10% cohort doesn't move activation in 2 weeks, do we kill or iterate?"</li><li>"Are you OK gating the dashboard during onboarding?"</li></ul>`},
+
+  '/review':{plugin:'pm-brain',fw:'Weekly sweep · six checks',
+    desc:'Friday sweep: reads the whole brain, flags drift and contradictions, drafts the bigger calls.',
+    chain:['read-all','contradictions','drift','draft-fixes'],
+    ctx:['knowledge/strategy.md','decisions/plg-vs-enterprise.md','hypotheses/activation.md'],
+    next:[['/ideate','act on a finding'],['/prep','brief on a change']],
+    out:`<h4>Friday sweep — 6 checks</h4>
+<ul>
+<li>✓ Structure intact — all durable files have provenance tags.</li>
+<li><span class="flag warn">contradiction</span> A new interview (ingested Wed) says teams <em>do</em> see value before inviting — undercuts assumption A1 in <code>hypotheses/activation.md</code> <span class="cite">hunch</span>. Drafted an update for your call.</li>
+<li><span class="flag warn">drift</span> <code>knowledge/strategy.md</code> still lists 28% activation; latest dashboard shows 31%. Update?</li>
+<li>✓ No decisions due to reopen this week.</li>
+<li>✓ All stakeholders have a current open-thread line.</li>
+<li>✓ 4 source files un-synthesized → queued for <code>/ingest</code>.</li>
+</ul>
+<p>Two items need your judgment. The rest are auto-fixed.</p>`},
+};
+
+// ── PLUGIN GROUPING ───────────────────────────────────────────────────
+const PLUGINS=[
+  ['pm-product-discovery',['/discover','/risk']],
+  ['pm-product-strategy',['/strategy']],
+  ['pm-data-analytics',['/north-star']],
+  ['pm-execution',['/write-prd','/prioritize']],
+  ['pm-go-to-market',['/plan-launch']],
+  ['pm-toolkit',['/prep']],
+  ['pm-brain',['/review']],
+];
+
+let current='/discover';
+
+// ── BUILD CATALOG ─────────────────────────────────────────────────────
+function buildCatalog(filter=''){
+  const list=document.getElementById('catList'); list.innerHTML='';
+  PLUGINS.forEach(([plugin,cmds])=>{
+    const matched=cmds.filter(c=>!filter|| c.includes(filter)|| CMDS[c].desc.toLowerCase().includes(filter)||CMDS[c].fw.toLowerCase().includes(filter));
+    if(!matched.length) return;
+    const g=document.createElement('div'); g.className='plugin-group';
+    g.innerHTML=`<div class="plugin-h"><span>${plugin}</span><span class="pc">${cmds.length}</span></div>`;
+    matched.forEach(c=>{
+      const r=document.createElement('div');
+      r.className='cmd-row'+(c===current?' active':'');
+      r.onclick=()=>selectCmd(c);
+      r.innerHTML=`<span class="dotc"></span><span class="cn">${c}</span>`;
+      g.appendChild(r);
+    });
+    list.appendChild(g);
+  });
+}
+function filterCat(v){ buildCatalog(v.trim().toLowerCase()); }
+
+// ── RENDER CHAIN / CONTEXT / RAIL ─────────────────────────────────────
+function renderHeader(cmd){
+  const d=CMDS[cmd];
+  document.getElementById('runCmd').textContent=cmd;
+  document.getElementById('runPlugin').textContent=d.plugin;
+  document.getElementById('runStatus').textContent='idle';
+  document.getElementById('runStatus').className='status';
+  // chain
+  const ch=document.getElementById('runChain'); ch.innerHTML='';
+  d.chain.forEach((s,i)=>{
+    if(i>0) ch.insertAdjacentHTML('beforeend','<span class="arr">→</span>');
+    ch.insertAdjacentHTML('beforeend',`<span class="step" data-s="${i}"><span class="sd"></span>${s}</span>`);
+  });
+  // context files
+  const cf=document.getElementById('ctxFiles'); cf.innerHTML='';
+  d.ctx.forEach(f=>{ const tag=BRAIN[f]||'verbal';
+    cf.insertAdjacentHTML('beforeend',`<span class="ctx-file"><span class="pd ${tag}"></span>${f}</span>`); });
+  // rail
+  document.getElementById('railName').textContent=cmd;
+  document.getElementById('railDesc').textContent=d.desc;
+  document.getElementById('railFw').textContent=d.fw;
+  const rc=document.getElementById('railChain'); rc.innerHTML='';
+  d.chain.forEach((s,i)=>rc.insertAdjacentHTML('beforeend',`<div class="chain-li" data-r="${i}"><span class="ci">✓</span>${s}</div>`));
+}
+
+function selectCmd(cmd){
+  current=cmd;
+  buildCatalog(document.getElementById('catSearch').value.trim().toLowerCase());
+  renderHeader(cmd);
+  // reset output to empty
+  document.getElementById('emptyState').style.display='';
+  document.getElementById('docOut').style.display='none';
+  document.getElementById('docOut').innerHTML='';
+  // prefill prompt
+  document.getElementById('promptInput').value=cmd.slice(1)+suggestArg(cmd);
+}
+function suggestArg(cmd){
+  return {'/discover':' invite-link friction blocking team activation','/write-prd':' onboarding redesign','/prep':' vp-product','/risk':' onboarding redesign','/prioritize':' current backlog','/strategy':' activation','/north-star':'','/plan-launch':' onboarding redesign','/review':''}[cmd]||'';
+}
+
+// ── RUN (animate chain → stream output → suggest next) ─────────────────
+let running=false;
+function runCurrent(){ if(running) return; runCmd(current); }
+function runCmd(cmd){
+  running=true;
+  const d=CMDS[cmd];
+  document.getElementById('emptyState').style.display='none';
+  const out=document.getElementById('docOut'); out.style.display='block';
+  out.innerHTML='<div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+  document.getElementById('runStatus').textContent='running…';
+  document.getElementById('runStatus').className='status';
+  document.getElementById('runBtn').disabled=true;
+  // reset chain + rail steps
+  document.querySelectorAll('#runChain .step').forEach(s=>s.classList.remove('run','done'));
+  document.querySelectorAll('#railChain .chain-li').forEach(s=>s.classList.remove('done'));
+
+  const steps=document.querySelectorAll('#runChain .step');
+  const rails=document.querySelectorAll('#railChain .chain-li');
+  let i=0;
+  const step=()=>{
+    if(i>0){ steps[i-1].classList.remove('run'); steps[i-1].classList.add('done'); rails[i-1].classList.add('done'); }
+    if(i<steps.length){ steps[i].classList.add('run'); i++; setTimeout(step,520); }
+    else finish();
+  };
+  const finish=()=>{
+    out.innerHTML=d.out;
+    // suggested next
+    let nh='<div class="next-row"><div class="next-lbl">SUGGESTED NEXT &middot; the workflow flows on</div><div class="next-chips">';
+    d.next.forEach(([c,why])=>{ nh+=`<button class="next-chip" onclick="selectCmd('${c}');runCmd('${c}')">${c}<span class="why">${why}</span></button>`; });
+    nh+='</div></div>';
+    out.insertAdjacentHTML('beforeend',nh);
+    document.getElementById('runStatus').textContent='✓ done';
+    document.getElementById('runStatus').className='status done';
+    document.getElementById('runBtn').disabled=false;
+    // history
+    const h=document.getElementById('history');
+    h.querySelectorAll('.hist-row').forEach(r=>{ const m=r.querySelector('.hm'); });
+    const row=document.createElement('div'); row.className='hist-row';
+    row.innerHTML=`<span class="hd"></span><span class="ht">${cmd}</span><span class="hm">now</span>`;
+    h.insertBefore(row,h.firstChild);
+    running=false;
+    document.getElementById('output').scrollTop=0;
+  };
+  setTimeout(step,420);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+buildCatalog();
+renderHeader(current);
+</script>
+</body>
+</html>

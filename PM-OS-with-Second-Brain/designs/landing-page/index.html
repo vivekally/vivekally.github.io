@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PM OS — A second brain for product managers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070A11;
+  --surface: #0F1420;
+  --surface2: #141B29;
+  --line: #1B2230;
+  --line2: #232C3E;
+  --text: #EAF1FB;
+  --muted: #6B7890;
+  --faint: #566380;
+  --accent: #3DDC84;
+  --code: #7FE8B0;
+  --amber: #D9A406;
+  --doc: #7FE8B0;
+  --verbal: #5BC0EB;
+  --hunch: #C9A227;
+  --industry: #8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(61,220,132,.25);}
+
+/* NAV */
+header{position:sticky;top:0;z-index:100;background:rgba(7,10,17,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;color:var(--accent);letter-spacing:.02em;text-decoration:none;}
+.logo span{color:var(--muted);}
+.nav-links{display:flex;gap:26px;align-items:center;}
+.nav-links a{font-size:13.5px;color:var(--muted);text-decoration:none;transition:color .15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#070A11;border:none;border-radius:6px;padding:8px 18px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none;}}
+
+/* HERO */
+.hero{max-width:1140px;margin:0 auto;padding:92px 24px 56px;text-align:center;}
+.hero-label{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--accent);border:1px solid rgba(61,220,132,.3);border-radius:100px;padding:5px 13px;margin-bottom:28px;text-transform:uppercase;}
+.hero-label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);}
+h1.hero-head{font-size:clamp(33px,5.2vw,58px);font-weight:600;line-height:1.1;letter-spacing:-.025em;max-width:820px;margin:0 auto 22px;}
+h1.hero-head em{font-style:normal;color:var(--accent);}
+.hero-sub{font-size:18px;color:var(--muted);max-width:600px;margin:0 auto 36px;line-height:1.65;}
+.hero-sub strong{color:var(--text);font-weight:500;}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:#070A11;border:none;border-radius:8px;padding:13px 28px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--line2);border-radius:8px;padding:13px 26px;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;}
+.hero-meta{margin-top:22px;font-size:12.5px;color:var(--faint);font-family:'JetBrains Mono',monospace;}
+
+/* MOCKUP PREVIEW */
+.mockup-wrap{max-width:920px;margin:60px auto 0;padding:0 24px;}
+.mockup-frame{border:1px solid var(--line2);border-radius:13px;overflow:hidden;background:var(--surface);box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 0 1px rgba(61,220,132,.04);}
+.mockup-chrome{display:flex;align-items:center;gap:7px;padding:11px 15px;background:#0A0E16;color:var(--faint);font-size:12px;border-bottom:1px solid var(--line);}
+.dot{width:10px;height:10px;border-radius:50%;background:#39435A;}
+.mockup-url{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:11px;}
+.mockup-body{display:flex;min-height:330px;}
+.mockup-nav{width:188px;border-right:1px solid var(--line);padding:18px 14px;flex-shrink:0;}
+.m-nav-lbl{font-size:10px;letter-spacing:.1em;color:var(--faint);margin-bottom:13px;font-family:'JetBrains Mono',monospace;}
+.m-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);padding:6px 0;}
+.m-item.done{color:#8FA0B8;}
+.m-item.done .ic{color:var(--accent);}
+.m-item.active{color:var(--text);font-weight:500;background:#161E2E;border-radius:6px;padding:6px 8px;margin:0 -8px;}
+.m-item.active .ic{color:var(--accent);}
+.m-item .ic{width:14px;font-size:10px;display:inline-flex;justify-content:center;}
+.mockup-main{flex:1;padding:20px 22px;min-width:0;text-align:left;}
+.mockup-main h3{font-size:16px;font-weight:600;margin-bottom:3px;}
+.mockup-main .sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+.m-input{background:#141B29;border:1px solid var(--line2);border-radius:7px;padding:11px 13px;font-size:12.5px;color:#C6D2E6;line-height:1.55;margin-bottom:14px;}
+.m-code-lbl{font-size:10px;letter-spacing:.08em;color:var(--faint);margin-bottom:8px;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:7px;}
+.m-code-lbl::after{content:"writes locally · never pushes";color:#3A455C;font-size:9px;letter-spacing:.04em;}
+.m-code{background:#0B111C;border:1px solid #1E2738;border-radius:8px;padding:13px 14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;}
+.m-file{color:var(--verbal);margin-top:8px;}
+.m-file:first-child{margin-top:0;}
+.m-claim{color:#AEBBD0;padding-left:13px;display:block;}
+.tag{font-size:9px;padding:1px 5px;border-radius:3px;margin-left:5px;letter-spacing:.03em;vertical-align:middle;}
+.tag.doc{color:var(--doc);background:rgba(127,232,176,.1);border:1px solid rgba(127,232,176,.22);}
+.tag.verbal{color:var(--verbal);background:rgba(91,192,235,.1);border:1px solid rgba(91,192,235,.22);}
+.tag.hunch{color:var(--hunch);background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.22);}
+
+/* SECTION SCAFFOLD */
+.divider{border:none;border-top:1px solid var(--line);}
+.section{max-width:1140px;margin:0 auto;padding:80px 24px;}
+.sec-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;}
+.section h2{font-size:clamp(25px,3.6vw,38px);font-weight:600;letter-spacing:-.02em;line-height:1.18;max-width:660px;margin-bottom:14px;}
+.section .lead{font-size:17px;color:var(--muted);max-width:580px;line-height:1.65;margin-bottom:48px;}
+
+/* THREE QUESTIONS BAND */
+.questions{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.questions-inner{max-width:1140px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.q-cell{padding:8px 28px;border-left:1px solid var(--line);}
+.q-cell:first-child{border-left:none;padding-left:0;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-bottom:10px;}
+.q-cell h3{font-size:18px;font-weight:600;line-height:1.3;margin-bottom:6px;}
+.q-cell h3 em{font-style:normal;color:var(--accent);}
+.q-cell p{font-size:13.5px;color:var(--muted);line-height:1.55;}
+
+/* PROBLEM CARDS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.col-card{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:24px;}
+.col-card.bad{border-color:rgba(150,70,70,.28);}
+.col-card.good{border-color:rgba(61,220,132,.2);}
+.card-lbl{font-size:11px;letter-spacing:.1em;font-family:'JetBrains Mono',monospace;margin-bottom:12px;}
+.col-card.bad .card-lbl{color:#C87070;}
+.col-card.good .card-lbl{color:var(--accent);}
+.col-card h3{font-size:15px;font-weight:600;margin-bottom:8px;}
+.col-card p{font-size:14px;color:var(--muted);line-height:1.6;}
+.snippet{margin-top:14px;background:#0B111C;border:1px solid var(--line);border-radius:7px;padding:12px 13px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.75;}
+.snippet.bad-snip{color:#7A8494;font-style:italic;}
+.snippet.good-snip{color:#AEBBD0;}
+.snippet.good-snip .k{color:var(--faint);}
+
+/* BRAIN ANATOMY */
+.anatomy{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;}
+.anatomy-tree{background:#0B111C;border:1px solid var(--line3,#1E2738);border-radius:11px;padding:22px 24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.95;}
+.anatomy-tree .root{color:var(--accent);}
+.anatomy-tree .folder{color:var(--text);}
+.anatomy-tree .desc{color:var(--faint);}
+.anatomy-points .ap{padding:14px 0;border-top:1px solid var(--line);}
+.anatomy-points .ap:first-child{border-top:none;}
+.anatomy-points h4{font-size:14px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:9px;}
+.anatomy-points h4 .badge{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);background:rgba(61,220,132,.08);border:1px solid rgba(61,220,132,.2);border-radius:4px;padding:1px 6px;}
+.anatomy-points p{font-size:13.5px;color:var(--muted);line-height:1.55;}
+
+/* THE LOOP */
+.loop{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:40px;}
+.loop-step{flex:1;min-width:150px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 16px;position:relative;}
+.loop-step .ls-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;margin-bottom:8px;}
+.loop-step h4{font-size:14px;font-weight:600;margin-bottom:5px;}
+.loop-step p{font-size:12.5px;color:var(--muted);line-height:1.5;}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.step{padding:26px 22px;background:var(--surface);border:1px solid var(--line);border-radius:11px;}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.12em;margin-bottom:12px;text-transform:uppercase;}
+.step h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+.step p{font-size:13.5px;color:var(--muted);line-height:1.6;}
+.step .gerund{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-top:12px;}
+
+/* SKILLS MARKETPLACE */
+.skills-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:30px;}
+.skills-stats{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);}
+.skills-stats strong{color:var(--accent);font-weight:500;}
+.cmd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.cmd{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;transition:border-color .15s;}
+.cmd:hover{border-color:var(--line2);}
+.cmd .cmd-name{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--code);margin-bottom:6px;}
+.cmd p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:9px;}
+.cmd .cmd-chain{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);line-height:1.6;}
+.cmd .fw{display:inline-block;font-size:10px;color:var(--muted);background:var(--surface2);border:1px solid var(--line2);border-radius:4px;padding:1px 6px;margin-top:9px;}
+
+/* COMPOSE CALLOUT */
+.compose{background:linear-gradient(180deg,var(--surface),#0B111C);border:1px solid var(--line2);border-radius:13px;padding:40px;text-align:center;}
+.compose h3{font-size:clamp(20px,3vw,28px);font-weight:600;letter-spacing:-.01em;line-height:1.3;max-width:680px;margin:0 auto 12px;}
+.compose h3 em{font-style:normal;color:var(--accent);}
+.compose p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;}
+
+/* TESTIMONIALS */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.quote{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:22px;}
+.quote p{font-size:14px;color:#C6D2E6;line-height:1.6;margin-bottom:16px;}
+.quote .who{font-size:12.5px;color:var(--muted);}
+.quote .who strong{color:var(--text);font-weight:500;display:block;}
+
+/* CTA */
+.cta-section{text-align:center;padding:92px 24px;max-width:1140px;margin:0 auto;}
+.cta-section h2{font-size:clamp(27px,4vw,44px);font-weight:600;letter-spacing:-.02em;margin-bottom:14px;}
+.cta-section p{font-size:17px;color:var(--muted);margin-bottom:34px;}
+.cta-section .fine{margin-top:18px;font-size:12.5px;color:var(--faint);font-family:'JetBrains Mono',monospace;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:26px 24px;}
+.footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--faint);flex-wrap:wrap;gap:10px;}
+.footer-inner a{color:var(--muted);text-decoration:none;}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .anatomy{grid-template-columns:1fr;}
+  .questions-inner{grid-template-columns:1fr;gap:0;}
+  .q-cell{border-left:none;border-top:1px solid var(--line);padding:22px 0;}
+  .q-cell:first-child{border-top:none;padding-top:0;}
+}
+@media(max-width:768px){
+  .two-col,.steps,.cmd-grid,.quotes{grid-template-columns:1fr;}
+  .mockup-nav{display:none;}
+  .hero{padding:64px 24px 44px;}
+  .loop-step{min-width:100%;}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column;align-items:stretch;}
+  .btn-primary,.btn-secondary{text-align:center;}
+}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+
+<header role="banner">
+  <div class="nav-inner">
+    <a class="logo" href="#">pm<span>-</span>os<span>.app</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#brain">The Brain</a>
+      <a href="#skills">Skills</a>
+      <a href="#how">How it works</a>
+      <a class="nav-cta" href="#start">Build your PM Brain</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-label">PM OS &middot; Research preview</div>
+    <h1 class="hero-head" id="hero-h" data-pretext="true">
+      Your AI starts every session knowing nothing about <em>your</em> product.
+    </h1>
+    <p class="hero-sub">
+      PM OS gives you a <strong>second brain</strong> for product management — plain markdown your AI reads before it answers and writes to after. Pair it with <strong>68 PM skills</strong> that run real frameworks on your actual context, not a blank page.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#start" id="start">Build my PM Brain</a>
+      <a class="btn-secondary" href="#how">See how it works</a>
+    </div>
+    <div class="hero-meta">no vector DB &middot; no cloud lock-in &middot; commits to a folder on your laptop</div>
+
+    <div class="mockup-wrap" aria-hidden="true">
+      <div class="mockup-frame">
+        <div class="mockup-chrome">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="mockup-url">~/datapulse-brain &middot; /pm-brain</span>
+        </div>
+        <div class="mockup-body">
+          <nav class="mockup-nav">
+            <div class="m-nav-lbl">PM BRAIN</div>
+            <div class="m-item done"><span class="ic">&#10003;</span> Company &amp; role</div>
+            <div class="m-item done"><span class="ic">&#10003;</span> Product</div>
+            <div class="m-item active"><span class="ic">&#8594;</span> Users &amp; ICP</div>
+            <div class="m-item"><span class="ic">&#9675;</span> Strategy &amp; bets</div>
+            <div class="m-item"><span class="ic">&#9675;</span> Decisions</div>
+          </nav>
+          <div class="mockup-main">
+            <h3>Who is your ideal customer?</h3>
+            <div class="sub">Type freely. We synthesize it into the brain as you go.</div>
+            <div class="m-input">Data leads at 50&ndash;500 person B2B SaaS. They own activation and get grilled on it monthly. No way to see where users drop off in week 1.</div>
+            <div class="m-code-lbl">SYNTHESIZING &rarr;</div>
+            <div class="m-code">
+              <span class="m-file">knowledge/users.md</span>
+              <span class="m-claim">## Segment</span>
+              <span class="m-claim">Data leads, 50&ndash;500p B2B SaaS<span class="tag verbal">verbal</span></span>
+              <span class="m-claim">Owns activation, reviewed monthly<span class="tag verbal">verbal</span></span>
+              <span class="m-file">hypotheses/activation.md</span>
+              <span class="m-claim">Wk-1 drop-off is invisible to them<span class="tag hunch">hunch</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE QUESTIONS -->
+  <section class="questions" aria-label="The three questions product management answers">
+    <div class="questions-inner">
+      <div class="q-cell">
+        <div class="q-num">01</div>
+        <h3>Are we building the <em>right thing</em>?</h3>
+        <p>Discovery, assumptions, and the evidence behind every bet — held in one place, not scattered across tabs.</p>
+      </div>
+      <div class="q-cell">
+        <div class="q-num">02</div>
+        <h3>For the <em>right customer</em>?</h3>
+        <p>Your ICP, their jobs-to-be-done, and what you actually heard in the last interview — tagged by source.</p>
+      </div>
+      <div class="q-cell">
+        <div class="q-num">03</div>
+        <h3>At the <em>right time</em>?</h3>
+        <p>Strategy, current bets, and the decisions you've already made — so you never reopen a settled call by accident.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section" aria-labelledby="problem-h">
+    <div class="sec-lbl">The context tax</div>
+    <h2 id="problem-h" data-pretext="true">Re-explaining your product every session costs more than the output saves.</h2>
+    <p class="lead">Generic AI knows nothing about your product world. Every chat starts from zero. So PMs use it for low-stakes chores instead of the strategy work where context actually matters.</p>
+
+    <div class="two-col">
+      <div class="col-card bad">
+        <div class="card-lbl">Without PM OS</div>
+        <h3>Every session from scratch</h3>
+        <p>Ten minutes of context-setting before a useful answer. The AI guesses your product, invents a persona, and hands you a generic listicle.</p>
+        <div class="snippet bad-snip">"Let me remind you &mdash; we're a B2B SaaS tool for data teams. Our persona is the data lead who owns activation. We're freemium. Our big bet right now is the onboarding rework because&hellip;"</div>
+      </div>
+      <div class="col-card good">
+        <div class="card-lbl">With PM OS</div>
+        <h3>Context already loaded, with receipts</h3>
+        <p>Your brain rides into any Claude or ChatGPT session. It knows your product, ICP, metrics, and bets &mdash; and every claim is tagged with where it came from.</p>
+        <div class="snippet good-snip">
+          <span class="m-file" style="color:var(--verbal)">knowledge/product.md</span><br>
+          <span class="k">north_star</span> = activation rate, wk-1 <span class="tag doc">documented</span><br>
+          <span class="k">current_bet</span> = onboarding rework <span class="tag doc">documented</span><br>
+          <span class="k">icp.pain</span> = drop-off is invisible <span class="tag hunch">hunch</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- BRAIN ANATOMY -->
+  <section class="section" id="brain" aria-labelledby="brain-h">
+    <div class="sec-lbl">The PM Brain</div>
+    <h2 id="brain-h" data-pretext="true">A second brain made of markdown. Grep-able by you, readable by any AI.</h2>
+    <p class="lead">No embeddings, no retrieval tricks. Just an opinionated folder structure with maintenance built in. The memory lives in your repo, not in the model.</p>
+
+    <div class="anatomy">
+      <div class="anatomy-tree" aria-hidden="true">
+        <div class="root">datapulse-brain/</div>
+        <div><span class="folder">&#9492;&#9472; knowledge/</span> <span class="desc"># strategy, product, users, market</span></div>
+        <div><span class="folder">&#9492;&#9472; hypotheses/</span> <span class="desc"># what you're tracking evidence for</span></div>
+        <div><span class="folder">&#9492;&#9472; decisions/</span> <span class="desc"># calls made + what would reopen them</span></div>
+        <div><span class="folder">&#9492;&#9472; stakeholders/</span> <span class="desc"># one file per person, asks &amp; concerns</span></div>
+        <div><span class="folder">&#9492;&#9472; ingestion/</span> <span class="desc"># synthesis of every doc the brain read</span></div>
+        <div><span class="folder">&#9492;&#9472; source/</span> <span class="desc"># untouched originals, audit trail</span></div>
+      </div>
+      <div class="anatomy-points">
+        <div class="ap">
+          <h4>Provenance on every claim <span class="badge">[documented]</span></h4>
+          <p>Each load-bearing fact wears a marker: a documented interview, a verbal aside, your hunch, or industry knowledge. Documented outweighs verbal outweighs intuition &mdash; in plain text, so you can override it.</p>
+        </div>
+        <div class="ap">
+          <h4>One artifact, four to six files</h4>
+          <p>Drop in a transcript and the synthesis propagates: a user insight updates <code>knowledge/</code>, opens a <code>hypotheses/</code> stub, and flags a <code>stakeholders/</code> follow-up.</p>
+        </div>
+        <div class="ap">
+          <h4>Friday sweep keeps it honest</h4>
+          <p><code>/review</code> reads the whole folder weekly, flags what's drifting, and surfaces contradictions &mdash; like a decision that a new interview just undermined.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- HOW IT WORKS / THE LOOP -->
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="sec-lbl">How it works</div>
+    <h2 id="how-h" data-pretext="true">The brain has one loop. Every task runs through it.</h2>
+    <p class="lead">Feed it an artifact. It sources the original, synthesizes the signal, propagates it everywhere it applies, and tags the provenance. Then sweeps the whole thing every Friday.</p>
+
+    <div class="loop">
+      <div class="loop-step"><div class="ls-num">01 &middot; INGEST</div><h4>Feed it</h4><p>A transcript, a doc, a screenshot, a line in chat, or a pull from Notion / Jira / Slack.</p></div>
+      <div class="loop-step"><div class="ls-num">02 &middot; SYNTHESIZE</div><h4>Source it</h4><p>The original copies to <code>source/</code>. Observations land in <code>ingestion/</code>, tagged by speaker and date.</p></div>
+      <div class="loop-step"><div class="ls-num">03 &middot; PROPAGATE</div><h4>Spread it</h4><p>The durable layer updates wherever the new signal applies &mdash; often four to six files at once.</p></div>
+      <div class="loop-step"><div class="ls-num">04 &middot; SWEEP</div><h4>Keep it clean</h4><p>Friday's review flags drift, resolves small things, and drafts the bigger calls for you.</p></div>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <div class="step-num">Phase 1</div>
+        <h3>Build your brain in a guided interview</h3>
+        <p>A short, five-batch conversation captures your company, product, users, strategy, and decisions. Start fresh, or point it at existing Notion exports and Jira boards and it absorbs them.</p>
+        <div class="gerund">&rarr; capturing</div>
+      </article>
+      <article class="step">
+        <div class="step-num">Phase 2</div>
+        <h3>Run skills that draw on it</h3>
+        <p>Invoke a PM skill &mdash; write a PRD, define a north star, run discovery &mdash; and it loads your real context first, then applies the framework. Output cites the brain files it used.</p>
+        <div class="gerund">&rarr; orchestrating</div>
+      </article>
+      <article class="step">
+        <div class="step-num">Anywhere</div>
+        <h3>Take it to any AI</h3>
+        <p>The brain is plain files. Load it into Claude Code, Cursor, Claude Desktop, or paste it into a chat. Same context, same provenance, no platform lock-in.</p>
+        <div class="gerund">&rarr; portable</div>
+      </article>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SKILLS -->
+  <section class="section" id="skills" aria-labelledby="skills-h">
+    <div class="sec-lbl">The skill layer</div>
+    <div class="skills-head">
+      <h2 id="skills-h" style="margin-bottom:0" data-pretext="true">Frameworks, not blank pages.</h2>
+      <div class="skills-stats"><strong>68</strong> skills &middot; <strong>9</strong> plugins &middot; <strong>42</strong> chained workflows</div>
+    </div>
+    <p class="lead">Each skill encodes a proven PM framework &mdash; Teresa Torres on discovery, Cagan on product strategy, Savoia on pretotyping &mdash; and walks you through it step by step. Commands chain skills end to end, then suggest what to run next.</p>
+
+    <div class="cmd-grid">
+      <div class="cmd">
+        <div class="cmd-name">/discover</div>
+        <p>Turn a fuzzy idea into testable bets, grounded in your ICP.</p>
+        <div class="cmd-chain">brainstorm-ideas &rarr; identify-assumptions &rarr; prioritize-assumptions &rarr; brainstorm-experiments</div>
+        <span class="fw">Opportunity Solution Tree</span>
+      </div>
+      <div class="cmd">
+        <div class="cmd-name">/north-star</div>
+        <p>Define a north star with secondary and guardrail metrics for the current bet.</p>
+        <div class="cmd-chain">metric-tree &rarr; input-metrics &rarr; guardrails</div>
+        <span class="fw">Amplitude North Star</span>
+      </div>
+      <div class="cmd">
+        <div class="cmd-name">/write-prd</div>
+        <p>Draft a PRD scoped to the bet and ICP already in your brain.</p>
+        <div class="cmd-chain">problem-statement &rarr; scope &rarr; success-metrics &rarr; open-questions</div>
+        <span class="fw">Marty Cagan</span>
+      </div>
+      <div class="cmd">
+        <div class="cmd-name">/strategy</div>
+        <p>Pressure-test direction against what you know and what you've decided.</p>
+        <div class="cmd-chain">diagnosis &rarr; guiding-policy &rarr; coherent-actions</div>
+        <span class="fw">Rumelt Good Strategy</span>
+      </div>
+      <div class="cmd">
+        <div class="cmd-name">/risk</div>
+        <p>Five-area risk scan; opens hypothesis stubs for anything uncovered.</p>
+        <div class="cmd-chain">value &rarr; usability &rarr; feasibility &rarr; viability &rarr; ethics</div>
+        <span class="fw">Cagan Four Risks</span>
+      </div>
+      <div class="cmd">
+        <div class="cmd-name">/prep</div>
+        <p>One-page brief before a meeting: their open asks and last unresolved concern.</p>
+        <div class="cmd-chain">load-stakeholder &rarr; open-threads &rarr; suggested-questions</div>
+        <span class="fw">Stakeholder file</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- COMPOSE -->
+  <section class="section" aria-label="How the brain and skills compose">
+    <div class="compose">
+      <h3>The skill is <em>how to do the work</em> once. The brain is <em>what you know</em> across all the times you did it.</h3>
+      <p>PM Brain is the memory layer. PM Skills are the workflow modules. They compose &mdash; a skill runs the framework, the brain supplies the context and remembers the result.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TESTIMONIALS -->
+  <section class="section" aria-labelledby="proof-h">
+    <div class="sec-lbl">From the preview</div>
+    <h2 id="proof-h" data-pretext="true">PMs stopped re-explaining and started shipping.</h2>
+    <p class="lead">Illustrative reactions from the research preview.</p>
+    <div class="quotes">
+      <div class="quote">
+        <p>"My roadmap went from an artifact that collected dust to something the AI references every time I open a session. The provenance tags alone changed how I argue for decisions."</p>
+        <div class="who"><strong>Jordan P.</strong> Senior PM, B2B SaaS</div>
+      </div>
+      <div class="quote">
+        <p>"Six weeks later nobody remembered why we killed the other option. Now <code>decisions/</code> remembers, and tells me what would reopen the call."</p>
+        <div class="who"><strong>Lauren M.</strong> Group PM, fintech</div>
+      </div>
+      <div class="quote">
+        <p>"I pointed it at two years of Notion and a Jira export. Twenty minutes later I had a brain I could actually query, instead of forty tabs I never reopened."</p>
+        <div class="who"><strong>Faizan A.</strong> Head of Product, marketplace</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FINAL CTA -->
+  <section class="cta-section" aria-labelledby="cta-h">
+    <h2 id="cta-h" data-pretext="true">Stop briefing your AI from memory.</h2>
+    <p>Build your PM Brain in one guided sitting. Take it to any AI, starting today.</p>
+    <a class="btn-primary" href="/setup">Build my PM Brain &mdash; free</a>
+    <div class="fine">research preview &middot; your brain commits locally &middot; never pushed anywhere you don't control</div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--accent);">pm-os.app</span>
+    <span><a href="#brain">The Brain</a> &middot; <a href="#skills">Skills</a> &middot; <a href="#how">How it works</a></span>
+    <span>Research preview &middot; 2026</span>
+  </div>
+</footer>
+
+<!-- FALLBACK: vendor/pretext.js missing, using CDN -->
+<script type="module">
+import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
+
+async function initPretext() {
+  await document.fonts.ready;
+  const els = document.querySelectorAll('[data-pretext="true"]');
+  const prepared = new Map();
+  for (const el of els) {
+    prepared.set(el, prepare(el.textContent, getComputedStyle(el).font));
+  }
+  function relayout() {
+    for (const [el, handle] of prepared) {
+      const lh = parseFloat(getComputedStyle(el).lineHeight);
+      if (el.clientWidth > 0 && lh > 0) {
+        el.style.height = layout(handle, el.clientWidth, lh).height + 'px';
+      }
+    }
+  }
+  new ResizeObserver(relayout).observe(document.body);
+  relayout();
+}
+initPretext().catch(() => {});
+</script>
+
+</body>
+</html>

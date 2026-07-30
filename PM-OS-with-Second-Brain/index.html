@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>PM OS with Second Brain</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070A11;--surface:#0F1420;--border:#1E2D45;--accent:#3DDC84;--text:#E2E8F0;--muted:#64748B}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:56px 24px 96px}
+  .archived{display:inline-block;font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:2px;padding:5px 8px;margin-bottom:24px}
+  .archived a{color:var(--accent)}
+  h1{font-size:26px;letter-spacing:-0.02em;margin:0 0 16px}
+  p{color:var(--text)}
+  .lede{color:var(--muted)}
+  h2{font-size:15px;margin:40px 0 12px;letter-spacing:-0.01em}
+  pre{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;overflow-x:auto;font:400 13px/1.6 'JetBrains Mono',monospace;color:var(--text)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--border)}
+  th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  ul{padding-left:20px}
+  li{margin:4px 0}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--surface);padding:1px 4px;border-radius:2px}
+  .protos{list-style:none;padding:0;margin:0;border-top:1px solid var(--border)}
+  .protos li{border-bottom:1px solid var(--border);padding:12px 0;margin:0}
+  .protos a{font-size:15px}
+  .protos span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="archived">Archived 2026-07-29 — superseded by <a href="https://github.com/vivekally/pm-os-drift">pm-os-drift</a>. Full source: <a href="https://github.com/vivekally/pm-os-archive/tree/main/second-brain">pm-os-archive</a></p>
+
+  <h1>PM OS with Second Brain</h1>
+  <p class="lede">A product-management operating system built around a <strong>PM Brain</strong> — a plain
+  markdown second brain that gives AI persistent, structured context about your
+  product, users, strategy, and decisions.</p>
+
+  <h2>The problem</h2>
+  <p>PMs can't use AI for the high-judgment core of their job (strategy, discovery,
+  prioritization) because AI tools have no memory of their product. Re-explaining
+  context every session costs more than the output saves.</p>
+
+  <h2>How it worked</h2>
+  <pre>/pm-brain          ← guided 5-batch interview, ~12 min
+                   ← or: point at Notion export / Jira CSV / Gong transcript
+                   ↓
+knowledge/         ← plain markdown folders, local only, never pushed
+hypotheses/        ← every claim tagged: documented · verbal · hunch · industry
+decisions/
+stakeholders/
+                   ↓
+/discover          ← PM skills that load the brain, run a framework, cite sources
+/risk              ← suggest the next command when done
+/strategy
+...</pre>
+
+  <h2>Status at archival</h2>
+  <table>
+    <tr><th>Phase</th><th>What</th><th>Status</th></tr>
+    <tr><td>1</td><td>Guided context builder — <code>/pm-brain</code> skill</td><td>design complete</td></tr>
+    <tr><td>2</td><td>Skill orchestration — thin hand-wired PM commands</td><td>gated on T1</td></tr>
+    <tr><td>3</td><td>Second interface — web UI</td><td>gated on T1</td></tr>
+    <tr><td>4</td><td>Self-evolving brain</td><td>gated on T1</td></tr>
+  </table>
+
+  <h2>Clickable prototypes</h2>
+  <ul class="protos">
+    <li><a href="designs/landing-page/">Landing page</a><span>marketing page prototype</span></li>
+    <li><a href="designs/phase1-guided-capture/">Phase 1 — guided capture</a><span><code>/pm-brain</code> interview prototype</span></li>
+    <li><a href="designs/phase2-skill-layer/">Phase 2 — skill layer</a><span>PM skills marketplace prototype</span></li>
+  </ul>
+
+  <h2>Prior art &amp; inspiration</h2>
+  <ul>
+    <li><a href="https://www.productcompass.pm/p/pm-brain-os">PM Brain OS</a> — Paweł Huryn</li>
+    <li><a href="https://github.com/phuryn/pm-skills">PM Skills</a> — 68 skills, 9 plugins, 42 chained workflows</li>
+    <li><a href="https://couchto5k.ai">Couch to 5K</a> — guided progressive program pattern</li>
+    <li><a href="https://github.com/garrytan/gbrain">GBrain</a> — self-hostable brain substrate</li>
+  </ul>
+</div>
+</body>
+</html>
