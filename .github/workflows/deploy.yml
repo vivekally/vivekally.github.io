@@ -58,6 +58,12 @@ jobs:
           # PM OS Deck (static files, already built)
           cp -r pm-os-deck _site/pm-os-deck
 
+          # PM OS Prototype (archived - redirect stub to pm-os-landing)
+          cp -r pm-os-prototype _site/pm-os-prototype
+
+          # PM OS with Second Brain (archived - static hub + 3 design prototypes)
+          cp -r PM-OS-with-Second-Brain _site/PM-OS-with-Second-Brain
+
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

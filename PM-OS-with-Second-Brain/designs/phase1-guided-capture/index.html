@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PM OS — Bootstrap your PM Brain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070A11; --chrome:#0A0E16; --panel:#141B29; --panel2:#0B111C;
+  --line:#1B2230; --line2:#232C3E; --line3:#1E2738;
+  --text:#EAF1FB; --muted:#6B7890; --faint:#566380;
+  --accent:#3DDC84; --code:#7FE8B0;
+  --doc:#7FE8B0; --verbal:#5BC0EB; --hunch:#C9A227; --industry:#8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;}
+::selection{background:rgba(61,220,132,.25);}
+
+/* APP SHELL */
+.app-chrome{display:flex;align-items:center;gap:7px;padding:10px 16px;background:var(--chrome);border-bottom:1px solid var(--line);flex-shrink:0;}
+.dot{width:10px;height:10px;border-radius:50%;background:#39435A;}
+.app-url{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);}
+.app-url em{color:var(--muted);font-style:normal;}
+.chrome-right{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:#3A455C;}
+
+.progress-bar{height:3px;background:#16203A;flex-shrink:0;}
+.progress-fill{height:3px;background:var(--accent);transition:width .4s ease;width:0;}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;border-bottom:1px solid var(--line);flex-shrink:0;gap:16px;}
+.topbar-logo{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);font-weight:500;}
+.topbar-logo span{color:var(--faint);}
+.topbar-steps{font-size:12px;color:var(--muted);}
+.topbar-mode{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);border:1px solid var(--line2);border-radius:4px;padding:2px 7px;}
+.topbar-export{background:transparent;border:1px solid var(--line2);border-radius:6px;padding:6px 14px;font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);cursor:pointer;}
+.topbar-export:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ========= MODE PICKER ========= */
+.mode-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:28px;overflow-y:auto;}
+.mode-intro{text-align:center;max-width:560px;}
+.mode-intro .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;}
+.mode-intro h1{font-size:26px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px;}
+.mode-intro p{font-size:14.5px;color:var(--muted);line-height:1.6;}
+.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px;width:100%;}
+.mode-card{background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:22px;cursor:pointer;text-align:left;transition:border-color .15s,transform .1s;}
+.mode-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.mode-card .mc-ic{font-size:20px;margin-bottom:12px;}
+.mode-card h3{font-size:16px;font-weight:600;margin-bottom:6px;}
+.mode-card p{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:12px;}
+.mode-card .mc-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);}
+.mode-foot{font-family:'JetBrains Mono',monospace;font-size:11px;color:#3A455C;text-align:center;}
+
+/* ========= INGEST (migration) ========= */
+.ingest-screen{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:18px;}
+.ingest-screen.active{display:flex;}
+.ingest-screen h2{font-size:18px;font-weight:600;}
+.ingest-list{width:100%;max-width:520px;display:flex;flex-direction:column;gap:8px;}
+.ingest-row{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line2);border-radius:9px;padding:12px 16px;font-size:13px;opacity:.35;transition:opacity .3s;}
+.ingest-row.on{opacity:1;}
+.ingest-row .ir-ic{font-size:15px;}
+.ingest-row .ir-name{font-family:'JetBrains Mono',monospace;font-size:12px;color:#AEBBD0;flex:1;}
+.ingest-row .ir-status{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);}
+.ingest-row.on .ir-status{color:var(--code);}
+
+/* ========= BODY LAYOUT ========= */
+.app-body{display:none;flex:1;min-height:0;overflow:hidden;}
+.app-body.active{display:flex;}
+
+/* LEFT NAV */
+.sidenav{width:236px;border-right:1px solid var(--line);padding:20px 16px;flex-shrink:0;overflow-y:auto;}
+.sidenav-h{font-size:10px;letter-spacing:.12em;color:var(--faint);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:14px;}
+.nav-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);padding:8px 0;cursor:pointer;border-radius:6px;transition:background .15s;}
+.nav-item .ic{width:18px;display:inline-flex;justify-content:center;font-size:11px;flex-shrink:0;}
+.nav-item .nav-gerund{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9px;color:#3A455C;}
+.nav-item.done{color:#8FA0B8;}
+.nav-item.done .ic{color:var(--accent);}
+.nav-item.active{color:var(--text);font-weight:500;background:#161E2E;padding:8px 10px;margin:0 -10px;}
+.nav-item.active .ic{color:var(--accent);}
+.nav-item.locked{opacity:.4;cursor:default;}
+
+.sidenav-divider{border:none;border-top:1px solid var(--line);margin:18px 0;}
+.brain-files{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.95;}
+.brain-files .bf-h{color:var(--faint);font-size:10px;letter-spacing:.1em;margin-bottom:8px;}
+.brain-files .bf-row{color:var(--faint);}
+.brain-files .bf-row.has{color:var(--code);}
+.brain-files .bf-row .ct{color:#3A455C;}
+.loop-hint{margin-top:16px;font-size:11px;color:var(--faint);line-height:1.5;border-left:2px solid var(--line2);padding-left:10px;}
+
+/* MAIN AREA */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.split{flex:1;display:flex;min-height:0;overflow:hidden;}
+.left-pane{flex:1;padding:26px 28px;overflow-y:auto;display:flex;flex-direction:column;gap:18px;min-width:0;border-right:1px solid var(--line);}
+.right-pane{width:380px;flex-shrink:0;padding:22px 22px;overflow-y:auto;background:#080C14;display:flex;flex-direction:column;gap:14px;}
+
+.section-header h1{font-size:20px;font-weight:600;margin-bottom:5px;}
+.section-header .hint{font-size:13px;color:var(--muted);line-height:1.5;}
+
+.input-area{display:flex;flex-direction:column;gap:7px;}
+.input-lbl{font-size:11px;letter-spacing:.08em;color:var(--faint);font-family:'JetBrains Mono',monospace;display:flex;justify-content:space-between;}
+.input-lbl .wc{color:#3A455C;}
+textarea.brain-input{
+  background:var(--panel);border:1px solid var(--line2);border-radius:9px;
+  padding:14px 16px;font-size:14px;color:#C6D2E6;line-height:1.65;
+  font-family:'Inter',sans-serif;resize:vertical;min-height:150px;width:100%;
+  outline:none;transition:border-color .15s;
+}
+textarea.brain-input:focus{border-color:var(--accent);}
+textarea.brain-input::placeholder{color:var(--faint);}
+
+.example-chip{font-size:11.5px;color:var(--faint);cursor:pointer;border:1px dashed var(--line2);border-radius:6px;padding:7px 11px;align-self:flex-start;font-family:'JetBrains Mono',monospace;}
+.example-chip:hover{color:var(--accent);border-color:var(--accent);}
+
+/* KEY TAKEAWAY */
+.takeaway{display:none;background:rgba(61,220,132,.05);border:1px solid rgba(61,220,132,.18);border-radius:9px;padding:12px 15px;font-size:13px;color:#BFE9CF;line-height:1.55;}
+.takeaway.show{display:block;}
+.takeaway b{color:var(--accent);font-weight:600;}
+
+/* RIGHT PANE — LIVE BRAIN */
+.brain-title{font-size:11px;letter-spacing:.08em;color:var(--faint);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:8px;}
+.brain-title .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 1.6s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.brain-out{background:var(--panel2);border:1px solid var(--line3);border-radius:10px;padding:15px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.85;min-height:200px;flex:1;}
+.brain-out .bf{color:var(--verbal);margin-top:12px;}
+.brain-out .bf:first-child{margin-top:0;}
+.brain-out .bh{color:var(--faint);padding-left:12px;}
+.brain-out .bc{color:#AEBBD0;padding-left:12px;display:block;}
+.brain-out .bk{color:var(--faint);}
+.brain-out .cursor{color:var(--accent);animation:blink 1.1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.brain-empty{color:var(--faint);font-size:12px;font-style:italic;font-family:'Inter',sans-serif;}
+.tag{font-size:9px;padding:1px 5px;border-radius:3px;margin-left:5px;letter-spacing:.02em;}
+.tag.documented{color:var(--doc);background:rgba(127,232,176,.1);border:1px solid rgba(127,232,176,.22);}
+.tag.verbal{color:var(--verbal);background:rgba(91,192,235,.1);border:1px solid rgba(91,192,235,.22);}
+.tag.hunch{color:var(--hunch);background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.22);}
+.tag.industry{color:var(--industry);background:rgba(138,147,166,.1);border:1px solid rgba(138,147,166,.22);}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px;}
+.legend .lg{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--faint);display:flex;align-items:center;gap:4px;}
+.legend .sw{width:8px;height:8px;border-radius:2px;}
+
+.confidence-bar{display:flex;align-items:center;gap:10px;}
+.conf-track{flex:1;height:4px;background:var(--line2);border-radius:2px;}
+.conf-fill{height:4px;border-radius:2px;background:var(--accent);transition:width .4s ease;width:0;}
+.conf-label{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted);width:54px;text-align:right;}
+
+/* BOTTOM BAR */
+.bottom-bar{border-top:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.bottom-left{font-size:12px;color:var(--muted);}
+.bottom-left strong{color:var(--text);}
+.btn-continue{background:var(--accent);color:#070A11;border:none;border-radius:7px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-continue:disabled{opacity:.4;cursor:not-allowed;}
+.btn-skip{background:transparent;border:none;font-size:13px;color:var(--faint);cursor:pointer;padding:10px 12px;font-family:'Inter',sans-serif;}
+.btn-skip:hover{color:var(--muted);}
+
+/* EXPORT SCREEN */
+.export-screen{display:none;flex:1;padding:26px 28px;overflow-y:auto;}
+.export-screen.active{display:flex;flex-direction:column;gap:20px;}
+.export-header h1{font-size:21px;font-weight:600;margin-bottom:6px;}
+.export-header p{font-size:14px;color:var(--muted);line-height:1.55;max-width:620px;}
+.export-grid{display:grid;grid-template-columns:230px 1fr;gap:18px;}
+.export-tree{background:var(--panel2);border:1px solid var(--line3);border-radius:10px;padding:16px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.95;align-self:start;}
+.export-tree .root{color:var(--accent);}
+.export-tree .ef{color:#AEBBD0;}
+.export-tree .ec{color:#3A455C;}
+.export-block{background:var(--panel2);border:1px solid var(--line3);border-radius:10px;padding:18px 20px;overflow:auto;}
+.export-block pre{font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.85;color:#AEBBD0;white-space:pre-wrap;word-break:break-word;}
+.export-block pre .bf{color:var(--verbal);}
+.export-block pre .bh{color:var(--faint);}
+.export-block pre .cm{color:#3A455C;}
+.git-line{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);background:#080C14;border:1px solid var(--line3);border-radius:8px;padding:11px 14px;}
+.git-line .ok{color:var(--accent);}
+.export-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.btn-copy{background:var(--accent);color:#070A11;border:none;border-radius:7px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-ghost{background:transparent;border:1px solid var(--line2);border-radius:7px;padding:10px 18px;font-size:13px;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+@media(max-width:980px){.right-pane{width:320px;}}
+@media(max-width:820px){
+  .sidenav{display:none;}
+  .split{flex-direction:column;}
+  .left-pane{border-right:none;border-bottom:1px solid var(--line);}
+  .right-pane{width:100%;}
+  .export-grid{grid-template-columns:1fr;}
+  .mode-cards{grid-template-columns:1fr;}
+}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+
+<!-- CHROME -->
+<div class="app-chrome" aria-hidden="true">
+  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+  <span class="app-url">~/datapulse-brain<em> &middot; claude /pm-brain</em></span>
+  <span class="chrome-right">research preview</span>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Bootstrap progress">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-logo">pm<span>-</span>os</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="topbar-steps" id="stepLabel" aria-live="polite">Choose how to start</span>
+    <span class="topbar-mode" id="modeBadge" style="display:none"></span>
+  </div>
+  <button class="topbar-export" id="exportBtn" onclick="showExport()" aria-label="Finish and export brain" style="display:none">Finish &amp; commit</button>
+</div>
+
+<!-- ============ MODE PICKER ============ -->
+<div class="mode-screen" id="modeScreen">
+  <div class="mode-intro">
+    <div class="kicker">/pm-brain &middot; bootstrap</div>
+    <h1>Let's stand up your second brain.</h1>
+    <p>A short, five-batch interview captures your company, product, users, strategy, and decisions. It scaffolds a folder of plain markdown, then commits it locally. It never pushes anywhere.</p>
+  </div>
+  <div class="mode-cards">
+    <button class="mode-card" onclick="startGreenfield()">
+      <div class="mc-ic">&#9728;</div>
+      <h3>Start fresh</h3>
+      <p>Empty folder. We'll interview you batch by batch and build the brain from your answers.</p>
+      <div class="mc-meta">greenfield &middot; ~12 min</div>
+    </button>
+    <button class="mode-card" onclick="startMigration()">
+      <div class="mc-ic">&#128194;</div>
+      <h3>I have existing notes</h3>
+      <p>Point it at a Notion export, a Jira board, or call transcripts. It reads them and pre-fills your brain &mdash; you just confirm.</p>
+      <div class="mc-meta">migration &middot; reads &amp; absorbs</div>
+    </button>
+  </div>
+  <div class="mode-foot">migration absorbs your <b>current</b> state &mdash; don't backfill 200 old transcripts</div>
+</div>
+
+<!-- ============ INGEST (migration only) ============ -->
+<div class="ingest-screen" id="ingestScreen">
+  <h2>Reading your sources&hellip;</h2>
+  <div class="ingest-list" id="ingestList">
+    <div class="ingest-row" data-i="0"><span class="ir-ic">&#128196;</span><span class="ir-name">notion-export/product-strategy.md</span><span class="ir-status">queued</span></div>
+    <div class="ingest-row" data-i="1"><span class="ir-ic">&#128202;</span><span class="ir-name">jira/DATA-board.csv &middot; 84 issues</span><span class="ir-status">queued</span></div>
+    <div class="ingest-row" data-i="2"><span class="ir-ic">&#127908;</span><span class="ir-name">gong/acme-renewal-2026-05-21.txt</span><span class="ir-status">queued</span></div>
+    <div class="ingest-row" data-i="3"><span class="ir-ic">&#128172;</span><span class="ir-name">slack/#product-decisions export</span><span class="ir-status">queued</span></div>
+  </div>
+  <div class="mode-foot" id="ingestFoot">originals copied to <b>source/</b> &middot; synthesis lands in <b>ingestion/</b></div>
+</div>
+
+<!-- ============ BODY ============ -->
+<div class="app-body" id="appBody">
+
+  <!-- LEFT NAV -->
+  <nav class="sidenav" aria-label="Brain sections">
+    <div class="sidenav-h">Interview</div>
+    <div class="nav-item" id="nav-0" onclick="goToSection(0)"><span class="ic" id="ic-0">&#9675;</span> Company &amp; role <span class="nav-gerund">framing</span></div>
+    <div class="nav-item locked" id="nav-1" onclick="goToSection(1)"><span class="ic" id="ic-1">&#9675;</span> Product &amp; market <span class="nav-gerund">scoping</span></div>
+    <div class="nav-item locked" id="nav-2" onclick="goToSection(2)"><span class="ic" id="ic-2">&#9675;</span> Users &amp; ICP <span class="nav-gerund">listening</span></div>
+    <div class="nav-item locked" id="nav-3" onclick="goToSection(3)"><span class="ic" id="ic-3">&#9675;</span> Strategy &amp; bets <span class="nav-gerund">deciding</span></div>
+    <div class="nav-item locked" id="nav-4" onclick="goToSection(4)"><span class="ic" id="ic-4">&#9675;</span> Decisions &amp; people <span class="nav-gerund">recording</span></div>
+
+    <hr class="sidenav-divider">
+    <div class="brain-files">
+      <div class="bf-h">DURABLE LAYER</div>
+      <div id="brainFiles">
+        <div class="bf-row" data-f="knowledge">knowledge/ <span class="ct">empty</span></div>
+        <div class="bf-row" data-f="hypotheses">hypotheses/ <span class="ct">empty</span></div>
+        <div class="bf-row" data-f="decisions">decisions/ <span class="ct">empty</span></div>
+        <div class="bf-row" data-f="stakeholders">stakeholders/ <span class="ct">empty</span></div>
+      </div>
+    </div>
+    <div class="loop-hint">Once bootstrapped, <b>/review</b> sweeps the brain every Friday &mdash; flagging drift and contradictions.</div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="split">
+      <!-- LEFT: INPUT -->
+      <div class="left-pane">
+        <div class="section-header">
+          <h1 id="sectionTitle">&nbsp;</h1>
+          <p class="hint" id="sectionHint">&nbsp;</p>
+        </div>
+        <div class="input-area">
+          <div class="input-lbl"><span>YOUR ANSWER</span><span class="wc" id="wordCount">0 words</span></div>
+          <textarea class="brain-input" id="brainInput" placeholder="Start typing..." aria-label="Your answer" rows="6"></textarea>
+        </div>
+        <div class="example-chip" id="exampleChip" onclick="fillExample()">&#10024; paste an example answer</div>
+        <div class="takeaway" id="takeaway"></div>
+      </div>
+
+      <!-- RIGHT: LIVE BRAIN -->
+      <div class="right-pane">
+        <div class="brain-title"><span class="pulse"></span> LIVE BRAIN &middot; synthesizing</div>
+        <div class="brain-out" id="brainOut" aria-live="polite" aria-label="Live brain synthesis">
+          <span class="brain-empty">Type on the left. Your answer gets synthesized into markdown here, with a provenance tag on every claim.</span>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span class="lg"><span class="sw" style="background:var(--doc)"></span>documented</span>
+          <span class="lg"><span class="sw" style="background:var(--verbal)"></span>verbal</span>
+          <span class="lg"><span class="sw" style="background:var(--hunch)"></span>hunch</span>
+          <span class="lg"><span class="sw" style="background:var(--industry)"></span>industry</span>
+        </div>
+        <div class="confidence-bar">
+          <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+          <div class="conf-label" id="confLabel">0.0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPORT SCREEN -->
+    <div class="export-screen" id="exportScreen">
+      <div class="export-header">
+        <h1>Your PM Brain is scaffolded.</h1>
+        <p>Six folders of plain markdown, every claim tagged with where it came from. Open it in Claude Code, Cursor, or any AI &mdash; it reads the brain before it answers, and writes back after.</p>
+      </div>
+      <div class="export-grid">
+        <div class="export-tree" id="exportTree" aria-hidden="true"></div>
+        <div class="export-block"><pre id="exportContent" aria-label="Brain export"></pre></div>
+      </div>
+      <div class="git-line"><span class="ok">&#10003;</span> committed <span id="commitN">12</span> files to <b>~/datapulse-brain</b> &middot; <span style="color:#3A455C">git log: "bootstrap brain via /pm-brain" (local only, never pushed)</span></div>
+      <div class="export-actions">
+        <button class="btn-copy" onclick="copyBrain()" id="copyBtn">Copy brain as one file</button>
+        <button class="btn-ghost" onclick="alert('In the real app this opens the brain folder in Claude Code with the /ingest, /prep, /review skills loaded.')">Open in Claude Code &rarr;</button>
+        <button class="btn-ghost" onclick="resetAll()">Start over</button>
+      </div>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="bottom-bar" id="bottomBar">
+      <div class="bottom-left" id="bottomLeft">&nbsp;</div>
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button class="btn-skip" onclick="skipSection()">Skip for now</button>
+        <button class="btn-continue" id="continueBtn" onclick="nextSection()">Continue &rarr;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FALLBACK: vendor/pretext.js missing, using CDN -->
+<script type="module">
+import { prepare, layout } from 'https://esm.sh/@chenglou/pretext';
+window.__pretext = { prepare, layout };
+</script>
+
+<script>
+// ── PROVENANCE TAGGER ─────────────────────────────────────────────────
+function tagFor(s){
+  const l = s.toLowerCase();
+  if(/\b(interview|transcript|said|told|reported|data shows?|survey|gong|ticket|nps|analytics|dashboard|metric|measured|export)\b/.test(l)) return 'documented';
+  if(/\b(i think|i bet|probably|my guess|hunch|believe|suspect|feels like|gut|maybe|might)\b/.test(l)) return 'hunch';
+  if(/\b(typically|usually|in general|best practice|industry|most companies|benchmark)\b/.test(l)) return 'industry';
+  return 'verbal';
+}
+function clip(s,n){ s=s.trim(); return s.length>n ? s.slice(0,n).trim()+'…' : s; }
+
+// ── SECTIONS (5 batches → durable layer) ──────────────────────────────
+const SECTIONS = [
+  {
+    navLabel:'Company & role', gerund:'framing',
+    title:'Who are you, and what are you working on?',
+    hint:'Your company, your role, and what you\'re accountable for this quarter. Like you\'d brief a smart new hire.',
+    placeholder:'e.g. I\'m a senior PM at DataPulse, a B2B SaaS analytics tool. I own activation and the onboarding surface. This quarter I\'m accountable for lifting week-1 activation.',
+    example:'I\'m a senior PM at DataPulse, a B2B SaaS analytics tool (~40 people, Series A). I own activation and the onboarding surface. This quarter leadership is grilling me on week-1 activation, which has been flat at 28%.',
+    takeaway:'Captured to <b>knowledge/company.md</b>. Your role and what you\'re measured on frame every answer the brain gives you later.',
+    extract:extractCompany, files:['knowledge']
+  },
+  {
+    navLabel:'Product & market', gerund:'scoping',
+    title:'What does the product do, and how does it make money?',
+    hint:'The outcome it creates, the category, and the business model. One or two honest sentences beats a tagline.',
+    placeholder:'e.g. DataPulse shows data teams exactly where new users drop off in onboarding. B2B SaaS, freemium with a per-seat paid tier.',
+    example:'DataPulse surfaces onboarding drop-off for data teams — they connect a source and see a funnel of where week-1 users stall. Category is product analytics. Model is freemium, paid tier is $200–500/seat/mo.',
+    takeaway:'Captured to <b>knowledge/product.md</b>. The brain now knows your category and model, so skills like <b>/write-prd</b> scope to it automatically.',
+    extract:extractProduct, files:['knowledge']
+  },
+  {
+    navLabel:'Users & ICP', gerund:'listening',
+    title:'Who is your ideal customer, and what do they actually struggle with?',
+    hint:'The person with the most urgent version of the problem. If you heard it in an interview, say so — it changes the provenance.',
+    placeholder:'e.g. Data leads at 50–500 person B2B SaaS. They own activation and have no way to see where week-1 users drop off…',
+    example:'Data leads at 50–500 person B2B SaaS. In our last three interviews they all said activation is a black box — they get grilled on it monthly but can\'t see where week-1 users drop off. Willing to pay $200–500/seat.',
+    takeaway:'Split across <b>knowledge/users.md</b> and a new <b>hypotheses/</b> stub. Notice the interview-sourced claims tagged <b>documented</b> outrank your hunches.',
+    extract:extractUsers, files:['knowledge','hypotheses']
+  },
+  {
+    navLabel:'Strategy & bets', gerund:'deciding',
+    title:'What\'s your north star, and what are you betting on right now?',
+    hint:'The number you report on, the current bet, and the hypothesis behind it. What goes wrong if the number drops?',
+    placeholder:'e.g. North star is week-1 activation rate. Current bet: rebuild the onboarding flow. Hypothesis: guided setup lifts activation +15pt…',
+    example:'North star is week-1 activation rate (currently 28%, target 43%). Current bet is rebuilding onboarding with a guided checklist. Hypothesis: guided setup lifts activation by 15 points. I think the biggest drop-off is the connect-a-source step.',
+    takeaway:'Wrote <b>knowledge/strategy.md</b> and opened <b>hypotheses/activation.md</b> with an evidence slot. The brain tracks this bet until evidence closes it.',
+    extract:extractStrategy, files:['knowledge','hypotheses']
+  },
+  {
+    navLabel:'Decisions & people', gerund:'recording',
+    title:'What big calls have you made, and who do you answer to?',
+    hint:'Decisions that shaped direction (with the reasoning), plus the stakeholders watching this work.',
+    placeholder:'e.g. Decided bottom-up PLG over enterprise sales in 2024 — sales cycle was too long for our ACV. My VP of Product and the CEO both watch activation weekly…',
+    example:'Decided to go bottom-up PLG instead of top-down enterprise in 2024 Q2 — the sales cycle was 6 months and our ACV didn\'t justify it. Ruled out usage-capped freemium. My VP of Product reviews activation weekly; the CEO asks about it in every board prep.',
+    takeaway:'Wrote <b>decisions/plg-vs-enterprise.md</b> (with what would reopen it) and one file per person in <b>stakeholders/</b>. <b>/prep</b> can now brief you before any of those meetings.',
+    extract:extractDecisions, files:['decisions','stakeholders']
+  },
+];
+
+// ── EXTRACTORS → [{file, heading, claims:[{k?,text,tag}]}] ─────────────
+function sentences(t){ return t.split(/[.\n;]+/).map(s=>s.trim()).filter(s=>s.length>4); }
+
+function extractCompany(t){
+  if(!t.trim()) return null;
+  const claims=[]; const l=t.toLowerCase();
+  const role=t.match(/\b((?:senior |staff |group |lead |principal )?(?:pm|product manager|product lead|head of product|cpo|director of product))\b/i);
+  if(role) claims.push({k:'role',text:role[1],tag:'verbal'});
+  const co=t.match(/\bat\s+([A-Z][A-Za-z0-9]+)/);
+  if(co) claims.push({k:'company',text:co[1],tag:'verbal'});
+  const size=t.match(/(~?\d[\d,]*\s*(?:people|person|employees|p\b|engineers)|series\s+[a-d]|seed)/i);
+  if(size) claims.push({k:'stage',text:size[0],tag:'verbal'});
+  const own=t.match(/\b(?:own|owns|accountable for|responsible for|measured on|grilled on)\s+([^.,\n]{4,50})/i);
+  if(own) claims.push({k:'owns',text:clip(own[1],46),tag:tagFor(t)});
+  if(!claims.length) claims.push({k:'note',text:clip(t,60),tag:'verbal'});
+  return [{file:'knowledge/company.md', heading:'Role & mandate', claims}];
+}
+function extractProduct(t){
+  if(!t.trim()) return null;
+  const claims=[]; const l=t.toLowerCase();
+  const name=t.match(/\b([A-Z][A-Za-z0-9]{2,})\b\s+(?:is|surfaces?|shows?|helps?|lets?|gives?)/);
+  if(name) claims.push({k:'name',text:name[1],tag:'verbal'});
+  const out=t.match(/(?:surfaces?|shows?|helps?|lets?|gives?|enables?)\s+([^.,\n]{8,70})/i);
+  if(out) claims.push({k:'outcome',text:clip(out[1],64),tag:tagFor(t)});
+  if(/saas|software|b2b/.test(l)) claims.push({k:'category',text:'B2B SaaS '+(/(analytic|funnel|data)/.test(l)?'analytics':''),tag:'verbal'});
+  if(/freemium/.test(l)) claims.push({k:'model',text:'freemium '+( /seat/.test(l)?'+ per-seat paid':''),tag:'verbal'});
+  else if(/subscription|per seat|per-seat|\/mo/.test(l)) claims.push({k:'model',text:'subscription / per-seat',tag:'verbal'});
+  const price=t.match(/\$[\d,]+\s*(?:–|-|to)\s*[\d,]+\s*\/?\s*(?:seat|user|mo|month)?/i);
+  if(price) claims.push({k:'price',text:price[0].replace(/\s+/g,' '),tag:tagFor(t)});
+  if(!claims.length) claims.push({k:'note',text:clip(t,60),tag:'verbal'});
+  return [{file:'knowledge/product.md', heading:'What it does', claims}];
+}
+function extractUsers(t){
+  if(!t.trim()) return null;
+  const know=[]; const hyp=[]; const l=t.toLowerCase();
+  const seg=t.match(/([A-Za-z][A-Za-z\s]*?(?:lead|leads|manager|director|head|owner|VP|admin|team)s?\b[^.,\n]{0,40})/i);
+  if(seg) know.push({k:'segment',text:clip(seg[1],52),tag:'verbal'});
+  const size=t.match(/\d[\d,]*\s*(?:–|-|to)\s*\d[\d,]*\s*(?:person|people|p\b|employee|seat)/i);
+  if(size) know.push({k:'company_size',text:size[0],tag:'verbal'});
+  const wtp=t.match(/\$[\d,]+\s*(?:–|-|to)\s*[\d,]+\s*\/?\s*(?:seat|user|mo|month)?/i);
+  if(wtp) know.push({k:'willing_to_pay',text:wtp[0].replace(/\s+/g,' '),tag:tagFor(t)});
+  // pain → hypothesis, tagged by whether they cited interviews
+  const heard=/\b(interview|said|told|heard|transcript|call)\b/i.test(t);
+  const pain=t.match(/(?:can'?t|cannot|no way to|unable to|struggle|black box|blind|stall|drop[\s-]?off)[^.,\n]{0,60}/i);
+  if(pain) hyp.push({k:'pain',text:clip(pain[0],58),tag:heard?'documented':'hunch'});
+  if(!know.length) know.push({k:'note',text:clip(t,58),tag:'verbal'});
+  const out=[{file:'knowledge/users.md', heading:'Ideal customer', claims:know}];
+  if(hyp.length) out.push({file:'hypotheses/user-pain.md', heading:'Open question', claims:hyp});
+  return out;
+}
+function extractStrategy(t){
+  if(!t.trim()) return null;
+  const know=[]; const hyp=[]; const l=t.toLowerCase();
+  const ns=t.match(/(?:north star|primary metric)\s*(?:is|:)?\s*([^.,\n]{4,46})/i)
+        || t.match(/\b([a-z][a-z\s-]*?(?:activation|retention|conversion|engagement)\s*rate)\b/i);
+  if(ns) know.push({k:'north_star',text:clip(ns[1]||ns[0],44),tag:'documented'});
+  const cur=t.match(/\d{1,3}\s*%/g);
+  if(cur&&cur[0]) know.push({k:'current',text:cur[0]+(cur[1]?(' → target '+cur[1]):''),tag:'documented'});
+  const bet=t.match(/(?:bet(?:ting)?(?: is)?|building|rebuild(?:ing)?|shipping|launching|testing)\s*:?\s*([^.,\n]{6,60})/i);
+  if(bet) know.push({k:'current_bet',text:clip(bet[1],56),tag:'verbal'});
+  const hypo=t.match(/(?:hypothesis|expect|will lift|will improve|lifts?|believe)\s*:?\s*([^.,\n]{6,64})/i);
+  if(hypo) hyp.push({k:'claim',text:clip(hypo[1],60),tag:tagFor(hypo[0])});
+  const guess=t.match(/(?:biggest drop[\s-]?off|i think|riskiest)[^.,\n]{0,56}/i);
+  if(guess) hyp.push({k:'riskiest_assumption',text:clip(guess[0],56),tag:'hunch'});
+  if(!know.length) know.push({k:'note',text:clip(t,56),tag:'verbal'});
+  const out=[{file:'knowledge/strategy.md', heading:'Direction', claims:know}];
+  if(hyp.length){ hyp.push({k:'evidence',text:'(none yet — opened by bootstrap)',tag:'industry'}); out.push({file:'hypotheses/activation.md', heading:'Tracking', claims:hyp}); }
+  return out;
+}
+function extractDecisions(t){
+  if(!t.trim()) return null;
+  const dec=[]; const stk=[]; const l=t.toLowerCase();
+  const made=t.match(/(?:decided|chose|went with|picked)\s+([^.,\n]{6,64})/i);
+  if(made) dec.push({k:'decision',text:clip(made[1],60),tag:'verbal'});
+  const why=t.match(/(?:because|reason(?:ing)?(?: was)?|since|as)\s+([^.,\n]{6,64})/i);
+  if(why) dec.push({k:'rationale',text:clip(why[1],60),tag:tagFor(why[0])});
+  const ruled=t.match(/(?:ruled out|rejected|decided not to|against)\s+([^.,\n]{4,50})/i);
+  if(ruled) dec.push({k:'ruled_out',text:clip(ruled[1],48),tag:'verbal'});
+  if(dec.length) dec.push({k:'reopen_if',text:'ACV rises or sales-led signal appears',tag:'industry'});
+  // stakeholders
+  const people=t.match(/\b(VP of Product|CEO|CTO|CPO|head of [a-z]+|founder|my manager|exec team|board)\b/ig);
+  if(people){ [...new Set(people.map(p=>p.toLowerCase()))].slice(0,3).forEach(p=>{
+    const watches=/activation|metric|weekly|board/.test(l)?'watches activation':'stakeholder';
+    stk.push({k:p.replace(/\s+/g,'-'),text:watches,tag:'verbal'});
+  }); }
+  if(!dec.length) dec.push({k:'note',text:clip(t,58),tag:'verbal'});
+  const out=[{file:'decisions/plg-vs-enterprise.md', heading:'Decision record', claims:dec}];
+  if(stk.length) out.push({file:'stakeholders/', heading:'One file per person', claims:stk});
+  return out;
+}
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let currentSection=0, answers=['','','','',''], maxUnlocked=0, mode='greenfield';
+const FILLED={knowledge:false,hypotheses:false,decisions:false,stakeholders:false};
+
+// ── RENDER LIVE BRAIN ─────────────────────────────────────────────────
+function renderBrain(blocks){
+  const box=document.getElementById('brainOut');
+  if(!blocks||!blocks.length){ box.innerHTML='<span class="brain-empty">Type on the left. Your answer gets synthesized into markdown here, with a provenance tag on every claim.</span>'; return; }
+  let html='', last=null;
+  blocks.forEach(b=>{
+    html+=`<div class="bf">${b.file}</div>`;
+    html+=`<span class="bh">## ${b.heading}</span>`;
+    b.claims.forEach(c=>{
+      const kv = c.k ? `<span class="bk">${c.k}:</span> ` : '';
+      html+=`<span class="bc">${kv}${c.text} <span class="tag ${c.tag}">${c.tag}</span></span>`;
+      last=c;
+    });
+  });
+  if(last) html=html.replace(/<\/span>\s*$/,' <span class="cursor">▌</span></span>');
+  box.innerHTML=html;
+}
+
+function confidenceFor(text,blocks){
+  if(!text.trim()) return 0;
+  const words=text.trim().split(/\s+/).length;
+  let c=Math.min(.55, words*0.012);
+  if(blocks){ const claims=blocks.reduce((n,b)=>n+b.claims.length,0); c+=Math.min(.3, claims*0.06);
+    if(blocks.some(b=>b.claims.some(x=>x.tag==='documented'))) c+=0.1; }
+  return Math.min(.95,c);
+}
+
+function setConf(v){
+  document.getElementById('confFill').style.width=(v*100)+'%';
+  document.getElementById('confLabel').textContent=v.toFixed(2)+' conf';
+}
+
+function updateFiles(){
+  document.querySelectorAll('#brainFiles .bf-row').forEach(r=>{
+    const f=r.getAttribute('data-f');
+    if(FILLED[f]){ r.classList.add('has'); r.querySelector('.ct').textContent=''; }
+    else { r.classList.remove('has'); r.querySelector('.ct').textContent='empty'; }
+  });
+}
+
+function updateNav(){
+  SECTIONS.forEach((s,i)=>{
+    const el=document.getElementById('nav-'+i), ic=document.getElementById('ic-'+i);
+    el.className='nav-item';
+    if(i<currentSection||(i<=maxUnlocked&&i!==currentSection&&answers[i].trim())){ el.classList.add('done'); ic.innerHTML='&#10003;'; }
+    else if(i===currentSection){ el.classList.add('active'); ic.innerHTML='&#8594;'; }
+    else if(i<=maxUnlocked){ ic.innerHTML='&#9675;'; }
+    else { el.classList.add('locked'); ic.innerHTML='&#9675;'; }
+  });
+}
+function updateProgress(){
+  const pct=(currentSection/SECTIONS.length)*100;
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressFill').parentElement.setAttribute('aria-valuenow',Math.round(pct));
+  document.getElementById('stepLabel').textContent='Batch '+(currentSection+1)+' of '+SECTIONS.length+' — '+SECTIONS[currentSection].navLabel;
+}
+function updateWordCount(t){ document.getElementById('wordCount').textContent=(t.trim()?t.trim().split(/\s+/).length:0)+' words'; }
+
+function liveUpdate(){
+  const t=document.getElementById('brainInput').value;
+  const sec=SECTIONS[currentSection];
+  const blocks=sec.extract(t);
+  renderBrain(blocks);
+  setConf(confidenceFor(t,blocks));
+  updateWordCount(t);
+  const tk=document.getElementById('takeaway');
+  if(t.trim().split(/\s+/).length>=8){ tk.innerHTML='<b>Key takeaway —</b> '+sec.takeaway; tk.classList.add('show'); }
+  else tk.classList.remove('show');
+  document.getElementById('continueBtn').disabled=false;
+}
+
+function loadSection(idx){
+  const sec=SECTIONS[idx];
+  document.getElementById('sectionTitle').textContent=sec.title;
+  document.getElementById('sectionHint').textContent=sec.hint;
+  const input=document.getElementById('brainInput');
+  input.placeholder=sec.placeholder; input.value=answers[idx];
+  document.getElementById('takeaway').classList.remove('show');
+  updateNav(); updateProgress(); liveUpdate(); updateFiles();
+  document.getElementById('bottomLeft').innerHTML = idx===SECTIONS.length-1
+    ? 'Last batch &mdash; then we commit the brain' : 'Be honest, not polished. The brain works better with uncertainty marked.';
+  input.focus();
+}
+
+function commitSection(){
+  answers[currentSection]=document.getElementById('brainInput').value;
+  if(answers[currentSection].trim()){
+    SECTIONS[currentSection].files.forEach(f=>FILLED[f]=true);
+  }
+}
+function goToSection(idx){ if(idx>maxUnlocked) return; commitSection(); currentSection=idx; loadSection(idx); }
+function nextSection(){
+  commitSection();
+  if(currentSection<SECTIONS.length-1){ currentSection++; if(currentSection>maxUnlocked)maxUnlocked=currentSection; loadSection(currentSection); }
+  else showExport();
+}
+function skipSection(){
+  if(currentSection<SECTIONS.length-1){ currentSection++; if(currentSection>maxUnlocked)maxUnlocked=currentSection; loadSection(currentSection); }
+  else showExport();
+}
+function fillExample(){
+  document.getElementById('brainInput').value=SECTIONS[currentSection].example;
+  liveUpdate();
+}
+
+// ── MODES ─────────────────────────────────────────────────────────────
+function enterInterview(){
+  document.getElementById('modeScreen').style.display='none';
+  document.getElementById('ingestScreen').classList.remove('active');
+  document.getElementById('appBody').classList.add('active');
+  document.getElementById('exportBtn').style.display='';
+  document.getElementById('modeBadge').style.display='';
+  document.getElementById('modeBadge').textContent=mode;
+  loadSection(0);
+}
+function startGreenfield(){ mode='greenfield'; enterInterview(); }
+function startMigration(){
+  mode='migration';
+  document.getElementById('modeScreen').style.display='none';
+  document.getElementById('stepLabel').textContent='Reading sources…';
+  const ing=document.getElementById('ingestScreen'); ing.classList.add('active');
+  const rows=[...document.querySelectorAll('.ingest-row')];
+  let i=0;
+  const tick=()=>{
+    if(i>0) rows[i-1].querySelector('.ir-status').textContent='✓ absorbed';
+    if(i<rows.length){ rows[i].classList.add('on'); rows[i].querySelector('.ir-status').textContent='reading…'; i++; setTimeout(tick,650); }
+    else {
+      document.getElementById('ingestFoot').innerHTML='4 sources absorbed &middot; <b>pre-filling your answers</b> — confirm or edit each batch';
+      // pre-fill answers from "absorbed" sources, mostly documented
+      answers=SECTIONS.map(s=>s.example);
+      maxUnlocked=SECTIONS.length-1;
+      SECTIONS.forEach(s=>s.files.forEach(f=>FILLED[f]=true));
+      setTimeout(enterInterview,900);
+    }
+  };
+  setTimeout(tick,400);
+}
+
+// ── EXPORT ────────────────────────────────────────────────────────────
+function buildBlocks(){
+  const all=[];
+  SECTIONS.forEach((s,i)=>{ if(answers[i].trim()){ const b=s.extract(answers[i]); if(b) all.push(...b); } });
+  return all;
+}
+function buildExportText(){
+  const blocks=buildBlocks();
+  let out='# PM Brain — bootstrapped '+new Date().toISOString().split('T')[0]+'\n';
+  out+='# mode: '+mode+' · provenance tags: documented > verbal > hunch > industry\n\n';
+  const byFile={};
+  blocks.forEach(b=>{ (byFile[b.file]=byFile[b.file]||[]).push(b); });
+  Object.keys(byFile).forEach(f=>{
+    out+='@@ '+f+'\n';
+    byFile[f].forEach(b=>{ out+='## '+b.heading+'\n';
+      b.claims.forEach(c=>{ out+=(c.k?c.k+': ':'')+c.text+'  ['+c.tag+']\n'; }); });
+    out+='\n';
+  });
+  return out;
+}
+function showExport(){
+  commitSection();
+  document.querySelector('.split').style.display='none';
+  document.getElementById('bottomBar').style.display='none';
+  document.getElementById('exportScreen').classList.add('active');
+  document.getElementById('progressFill').style.width='100%';
+  document.getElementById('stepLabel').textContent='Brain committed';
+  SECTIONS.forEach((_,i)=>{ const el=document.getElementById('nav-'+i),ic=document.getElementById('ic-'+i); el.className='nav-item done'; ic.innerHTML='&#10003;'; });
+  // folder tree
+  const blocks=buildBlocks();
+  const files=[...new Set(blocks.map(b=>b.file))];
+  const folders={};
+  files.forEach(f=>{ const d=f.split('/')[0]+'/'; (folders[d]=folders[d]||[]).push(f.split('/')[1]||''); });
+  let tree='<div class="root">datapulse-brain/</div>';
+  Object.keys(folders).forEach(d=>{ tree+=`<div class="ef">&#9492;&#9472; ${d}</div>`;
+    [...new Set(folders[d].filter(Boolean))].forEach(fn=>tree+=`<div class="ec">&nbsp;&nbsp;&nbsp;&#9492;&#9472; ${fn}</div>`); });
+  tree+='<div class="ec">&#9492;&#9472; ingestion/ <span>('+(mode==='migration'?'4':'0')+')</span></div>';
+  tree+='<div class="ec">&#9492;&#9472; source/ <span>('+(mode==='migration'?'4':'0')+')</span></div>';
+  document.getElementById('exportTree').innerHTML=tree;
+  document.getElementById('commitN').textContent=(files.length+2);
+  // export text
+  const txt=buildExportText();
+  document.getElementById('exportContent').innerHTML=txt
+    .replace(/^(@@ .+)$/gm,'<span class="bf">$1</span>')
+    .replace(/^(## .+)$/gm,'<span class="bh">$1</span>')
+    .replace(/^(# .+)$/gm,'<span class="cm">$1</span>');
+}
+function copyBrain(){
+  navigator.clipboard.writeText(buildExportText()).then(()=>{
+    const b=document.getElementById('copyBtn'); b.textContent='Copied!'; setTimeout(()=>b.textContent='Copy brain as one file',1800);
+  }).catch(()=>alert('Copy failed — select the text manually.'));
+}
+function resetAll(){
+  answers=['','','','','']; currentSection=0; maxUnlocked=0;
+  Object.keys(FILLED).forEach(k=>FILLED[k]=false);
+  document.getElementById('exportScreen').classList.remove('active');
+  document.querySelector('.split').style.display='';
+  document.getElementById('bottomBar').style.display='';
+  document.getElementById('appBody').classList.remove('active');
+  document.getElementById('ingestScreen').classList.remove('active');
+  document.getElementById('exportBtn').style.display='none';
+  document.getElementById('modeBadge').style.display='none';
+  document.getElementById('progressFill').style.width='0';
+  document.getElementById('stepLabel').textContent='Choose how to start';
+  document.querySelectorAll('.ingest-row').forEach(r=>{r.classList.remove('on');r.querySelector('.ir-status').textContent='queued';});
+  document.getElementById('modeScreen').style.display='';
+}
+
+// ── WIRE ──────────────────────────────────────────────────────────────
+let dT;
+document.getElementById('brainInput').addEventListener('input',()=>{ clearTimeout(dT); dT=setTimeout(liveUpdate,200); });
+</script>
+</body>
+</html>
