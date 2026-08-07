@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Intelligence · 2026 — The market, the minds, and the frontier</title>
-<meta name="description" content="Three reports on AI in 2026: the AI Technology Stack Landscape Report (12 layers, 97 companies), the State of the Labs Briefing (22 labs, 4 doctrines), and the Frontier Board tracker (38 unsolved-problem startups, 2026 funding month by month, YC). Independent and fact-checked.">
+<meta name="description" content="Four reports on AI in 2026: the AI Technology Stack Landscape Report (12 layers, 97 companies), the State of the Labs Briefing (22 labs, 4 doctrines), the Frontier Board tracker (38 unsolved-problem startups, 2026 funding month by month, YC), and Two Robot Industries (physical AI, 20 companies graded against an evidence bar). Independent and fact-checked.">
 <meta property="og:title" content="AI Intelligence · 2026">
 <meta property="og:description" content="Where the value sits. What the builders believe. Who is working on what nobody has solved.">
 <meta property="og:type" content="website">
@@ -70,6 +70,18 @@
   @media (max-width:860px){ .card-track { grid-template-columns:1fr; gap:1.8rem; } }
 
   /* Crosswalk */
+  /* Card 4 — robotics report, paper editorial in steel blue */
+  .card-robot { background:#f4f4f2; padding:2.1rem 2.1rem 1.8rem; grid-column:1 / -1; }
+  .card-robot .tag { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; color:#1a5c96; border:1px solid rgba(26,92,150,0.35); border-radius:3px; padding:0.25rem 0.55rem; display:inline-block; margin-bottom:1.3rem; }
+  .card-robot h2 { font-family:'DM Serif Display',serif; font-weight:400; font-size:1.95rem; line-height:1.13; color:#16191c; margin-bottom:0.7rem; }
+  .card-robot h2 em { font-style:italic; color:#1a5c96; }
+  .card-robot p { font-size:0.88rem; line-height:1.65; color:#4b5157; margin-bottom:1.4rem; max-width:46em; }
+  .card-robot .stat .n { color:#1a5c96; }
+  .card-robot .stat .l { color:#7a8189; }
+  .card-robot .cta { color:#1a5c96; }
+  .card-robot .fresh { color:#7a8189; }
+  .gradestrip { display:flex; gap:3px; margin-bottom:1.4rem; }
+  .gradestrip span { height:7px; flex:1; border-radius:2px; }
   .cross { border-top:1px solid rgba(255,255,255,0.08); padding-top:2.4rem; display:grid; grid-template-columns:repeat(3,1fr); gap:2.2rem; }
   .cross h3 { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:#5ee7c4; margin-bottom:0.7rem; }
   .cross p { font-size:0.88rem; line-height:1.65; color:#8b93a5; }
@@ -82,7 +94,7 @@
 <div class="wrap">
   <div class="eyebrow">Independent research · <b>Refreshed August 7, 2026</b> · vivekally.github.io</div>
   <h1>The market, <em>and the minds</em> behind it.</h1>
-  <p class="sub">Three reports on AI in 2026. The <b>Stack Landscape</b> maps where the money and the moats sit, layer by layer. The <b>Labs Briefing</b> maps what the people building it actually believe. The <b>Frontier Board</b> tracks who is attacking the problems nobody has solved yet, and where this year's capital actually landed.</p>
+  <p class="sub">Four reports on AI in 2026. The <b>Stack Landscape</b> maps where the money and the moats sit, layer by layer. The <b>Labs Briefing</b> maps what the people building it actually believe. The <b>Frontier Board</b> tracks who is attacking the problems nobody has solved yet, and where this year's capital actually landed. <b>Two Robot Industries</b> leaves the software behind and asks what physical AI has actually shipped.</p>
 
   <a class="card card-track" href="https://vivekally.github.io/ai-frontier-tracker-2026/">
     <div>
@@ -112,6 +124,23 @@
   </a>
 
   <div class="shelf">
+    <a class="card card-robot" href="https://vivekally.github.io/ai-robotics-report-2026/">
+      <span class="fresh">AUG 7 2026 · TIER-1 SOURCED</span>
+      <span class="tag">04 · PHYSICAL AI</span>
+      <h2>Two robot industries,<br><em>and a wall going up between them</em></h2>
+      <p>One robot industry earns billions and is almost entirely teleoperated. The other has raised more capital in eight months than the first earns in a year, and mostly cannot say how many units it has in the field. Every deployment claim graded against a stated evidence bar &mdash; plus the fortnight the US closed its market to Chinese robots and Unitree went public.</p>
+      <div class="gradestrip">
+        <span style="background:#1c7c4a"></span><span style="background:#1a5c96"></span><span style="background:#b07d10"></span><span style="background:#8a9099"></span>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">20</div><div class="l">Graded</div></div>
+        <div class="stat"><div class="n">11</div><div class="l">Stack layers</div></div>
+        <div class="stat"><div class="n">6</div><div class="l">Fault lines</div></div>
+        <div class="stat"><div class="n">8</div><div class="l">Conflicts logged</div></div>
+      </div>
+      <span class="cta">Open the briefing &rarr;</span>
+    </a>
+
     <a class="card card-stack" href="https://vivekally.github.io/ai-stack-report/">
       <span class="fresh">R3 · JUL 13 2026</span>
       <span class="tag">01 · SUPPLY SIDE</span>
@@ -160,9 +189,13 @@
       <h3>Read the tracker first if&hellip;</h3>
       <p>you're deciding <b>what to watch</b>. It sorts the newest labs by the problem they claim to be solving, follows the money month by month, and lists the dated events that would prove any of it.</p>
     </div>
+    <div>
+      <h3>Read the robotics briefing first if&hellip;</h3>
+      <p>you want to know <b>what is actually running</b>. It grades every physical-AI deployment claim against a stated evidence bar, separates the robot industry that earns from the one that raises, and maps the supply chain neither can escape.</p>
+    </div>
   </div>
 
-  <div class="foot">ALL THREE REPORTS: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · CONFLICTS LOGGED, NOT SMOOTHED · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
+  <div class="foot">ALL FOUR REPORTS: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · CONFLICTS LOGGED, NOT SMOOTHED · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
 </div>
 </body>
 </html>
