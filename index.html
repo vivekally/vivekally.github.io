@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Intelligence · 2026 — The market, and the minds behind it</title>
-<meta name="description" content="Two companion reports on AI in 2026: the AI Technology Stack Landscape Report (12 layers, 97 companies) and the State of the Labs Briefing (22 labs, 4 doctrines). Independent, fact-checked, refreshed July 13, 2026.">
+<title>AI Intelligence · 2026 — The market, the minds, and the frontier</title>
+<meta name="description" content="Three reports on AI in 2026: the AI Technology Stack Landscape Report (12 layers, 97 companies), the State of the Labs Briefing (22 labs, 4 doctrines), and the Frontier Board tracker (38 unsolved-problem startups, 2026 funding month by month, YC). Independent and fact-checked.">
 <meta property="og:title" content="AI Intelligence · 2026">
-<meta property="og:description" content="Where the value sits. What the builders believe. Two companion reports on AI in 2026.">
+<meta property="og:description" content="Where the value sits. What the builders believe. Who is working on what nobody has solved.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vivekally.github.io/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1F5FA;&#xFE0F;</text></svg>">
@@ -51,8 +51,26 @@
   .card-labs .stat .l { color:#7c8480; }
   .card-labs .cta { color:#0e6b52; }
   .card-labs .fresh { color:#8b938a; }
+  /* Card 3 — frontier tracker, in its own instrument language */
+  .card-track { background:linear-gradient(135deg,#15100a,#0c0e12 55%); padding:2.1rem 2.1rem 1.9rem; margin-bottom:1.6rem; display:grid; grid-template-columns:1.15fr 1fr; gap:2.4rem; align-items:center; border-color:rgba(245,165,36,0.22); }
+  .card-track:hover { box-shadow:0 14px 40px rgba(0,0,0,0.4); }
+  .card-track .tag { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; color:#f5a524; border:1px solid rgba(245,165,36,0.35); border-radius:3px; padding:0.25rem 0.55rem; display:inline-block; margin-bottom:1.2rem; }
+  .card-track h2 { font-family:'DM Serif Display',serif; font-weight:400; font-size:1.85rem; line-height:1.15; color:#f0f2f7; margin-bottom:0.7rem; }
+  .card-track h2 em { font-style:italic; color:#f5a524; }
+  .card-track p { font-size:0.86rem; line-height:1.6; color:#8b93a5; margin-bottom:1.4rem; }
+  .card-track .stats { margin-bottom:1.4rem; flex-wrap:wrap; row-gap:0.9rem; }
+  .card-track .stat .n { color:#f5a524; }
+  .card-track .cta { color:#f5a524; }
+  .card-track .live { font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#f5a524; float:right; margin-top:0.15rem; letter-spacing:0.06em; }
+  .card-track .live i { display:inline-block; width:6px; height:6px; border-radius:50%; background:#f5a524; margin-right:6px; vertical-align:1px; }
+  .spark { display:flex; align-items:flex-end; gap:6px; height:112px; }
+  .spark div { flex:1; border-radius:2px 2px 0 0; position:relative; }
+  .spark span { position:absolute; bottom:-1.35rem; left:0; right:0; text-align:center; font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.06em; color:#5d6577; }
+  .sparkcap { font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.1em; color:#5d6577; margin-top:1.9rem; line-height:1.7; }
+  @media (max-width:860px){ .card-track { grid-template-columns:1fr; gap:1.8rem; } }
+
   /* Crosswalk */
-  .cross { border-top:1px solid rgba(255,255,255,0.08); padding-top:2.4rem; display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; }
+  .cross { border-top:1px solid rgba(255,255,255,0.08); padding-top:2.4rem; display:grid; grid-template-columns:repeat(3,1fr); gap:2.2rem; }
   .cross h3 { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:#5ee7c4; margin-bottom:0.7rem; }
   .cross p { font-size:0.88rem; line-height:1.65; color:#8b93a5; }
   .cross b { color:#d4d8e2; font-weight:600; }
@@ -62,9 +80,36 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="eyebrow">Independent research · <b>Refreshed July 13, 2026</b> · vivekally.github.io</div>
+  <div class="eyebrow">Independent research · <b>Refreshed August 7, 2026</b> · vivekally.github.io</div>
   <h1>The market, <em>and the minds</em> behind it.</h1>
-  <p class="sub">Two companion reports on AI in 2026. The <b>Stack Landscape</b> maps where the money and the moats sit, layer by layer. The <b>Labs Briefing</b> maps what the people building it actually believe. Read together, they answer: where is the value, and which way is it moving?</p>
+  <p class="sub">Three reports on AI in 2026. The <b>Stack Landscape</b> maps where the money and the moats sit, layer by layer. The <b>Labs Briefing</b> maps what the people building it actually believe. The <b>Frontier Board</b> tracks who is attacking the problems nobody has solved yet, and where this year's capital actually landed.</p>
+
+  <a class="card card-track" href="https://vivekally.github.io/ai-frontier-tracker-2026/">
+    <div>
+      <span class="live"><i></i>LIVE TRACKER · AUG 7 2026</span>
+      <span class="tag">03 · THE FRONTIER</span>
+      <h2>Who is working on the problems <em>nobody has solved</em></h2>
+      <p>38 frontier bets sorted by unsolved problem — Skyfall, Mirendil, Oak Lab, Ineffable, Discovery Loop, Ndea. Plus 2026's largest rounds month by month, and what came out of YC.</p>
+      <div class="stats">
+        <div class="stat"><div class="n">38</div><div class="l">Frontier bets</div></div>
+        <div class="stat"><div class="n">5</div><div class="l">Unsolved problems</div></div>
+        <div class="stat"><div class="n">8 mo</div><div class="l">Funding ledger</div></div>
+        <div class="stat"><div class="n">199</div><div class="l">YC W26</div></div>
+      </div>
+      <span class="cta">Open the tracker &rarr;</span>
+    </div>
+    <div>
+      <div class="spark">
+        <div style="height:100%;background:linear-gradient(180deg,#f5a524,rgba(245,165,36,0.25))"><span>Q1</span></div>
+        <div style="height:28%;background:#3a4560"><span>APR</span></div>
+        <div style="height:46%;background:#f5a524"><span>MAY</span></div>
+        <div style="height:30%;background:#3a4560"><span>JUN</span></div>
+        <div style="height:33%;background:#3a4560"><span>JUL</span></div>
+        <div style="height:11%;background:#242c3d"><span>AUG</span></div>
+      </div>
+      <div class="sparkcap">GLOBAL VC BY MONTH, 2026 · Q1 $300B<br>MAY $92B — SECOND-LARGEST MONTH ON RECORD<br>TWO COMPANIES TOOK 43% OF H1</div>
+    </div>
+  </a>
 
   <div class="shelf">
     <a class="card card-stack" href="https://vivekally.github.io/ai-stack-report/">
@@ -111,9 +156,13 @@
       <h3>Read the labs first if&hellip;</h3>
       <p>you're deciding <b>what to believe</b>. It maps the strategic bets of the 22 labs that set the direction the entire stack has to follow.</p>
     </div>
+    <div>
+      <h3>Read the tracker first if&hellip;</h3>
+      <p>you're deciding <b>what to watch</b>. It sorts the newest labs by the problem they claim to be solving, follows the money month by month, and lists the dated events that would prove any of it.</p>
+    </div>
   </div>
 
-  <div class="foot">BOTH REPORTS: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · INLINE CORRECTIONS · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
+  <div class="foot">ALL THREE REPORTS: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · CONFLICTS LOGGED, NOT SMOOTHED · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
 </div>
 </body>
 </html>
