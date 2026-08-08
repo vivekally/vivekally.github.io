@@ -5,12 +5,12 @@ export function Badge({
   tone = "green",
 }: {
   children: ReactNode;
-  tone?: "violet" | "cyan" | "amber" | "green" | "slate" | "doc" | "verbal";
+  tone?: "violet" | "cyan" | "amber" | "green" | "slate" | "doc" | "verbal" | "hunch" | "industry";
 }) {
   // Workbench B: green = free/active, amber = paid, slate = teams/neutral.
   // "violet" and "cyan" map to green/slate so legacy call sites stay valid.
-  // "doc"/"verbal" are provenance tags — exact DESIGN.md colors, never reused
-  // for other meaning.
+  // "doc"/"verbal"/"hunch"/"industry" are the four provenance tags — exact
+  // DESIGN.md colors, never reused for other meaning.
   const tones: Record<string, string> = {
     green: "bg-accent/10 text-accent border-accent/25",
     violet: "bg-accent/10 text-accent border-accent/25",
@@ -19,6 +19,8 @@ export function Badge({
     slate: "bg-panel2 text-slate-400 border-line2",
     doc: "bg-[#7FE8B0]/10 text-[#7FE8B0] border-[#7FE8B0]/25",
     verbal: "bg-[#5BC0EB]/10 text-[#5BC0EB] border-[#5BC0EB]/25",
+    hunch: "bg-[#C9A227]/10 text-[#C9A227] border-[#C9A227]/25",
+    industry: "bg-[#8A93A6]/10 text-[#8A93A6] border-[#8A93A6]/25",
   };
   return (
     <span

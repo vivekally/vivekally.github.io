@@ -90,13 +90,86 @@ export const graphEdges: GraphEdge[] = [
   { from: "n6", to: "n2", label: "experiences" },
 ];
 
-export const cannedAnswer = {
-  question: "Why did we decide to rebuild connector setup?",
-  answer:
-    "Activation data showed 38% of new workspaces never finish their first connector (funnel doc, 4d ago). Combined with the eng-flagged Q3 platform risk, the team decided on 'Ship guided setup' rather than a full rebuild. The PRD 'Setup v2' came out of that decision.",
-  sources: ["m3", "m4"],
-  decision: "Ship guided setup",
+/** Fast lookup for citing memories by id. */
+export const memoryById: Record<string, Memory> = Object.fromEntries(
+  memories.map((m) => [m.id, m])
+);
+
+// ── Ask the Brain: a set of grounded Q&A, each citing real memories ──
+export type Query = {
+  id: string;
+  question: string;
+  answer: string;
+  sources: string[]; // memory ids
+  decision?: string;
 };
+
+export const queries: Query[] = [
+  {
+    id: "q1",
+    question: "Why did we decide to rebuild connector setup?",
+    answer:
+      "Activation data showed 38% of new workspaces never finish their first connector (funnel doc, 4d ago). Combined with the eng-flagged Q3 platform risk, the team chose “Ship guided setup” over a full rebuild — and the PRD “Setup v2” came out of that decision.",
+    sources: ["m3", "m4"],
+    decision: "Ship guided setup",
+  },
+  {
+    id: "q2",
+    question: "What's blocking our enterprise deals?",
+    answer:
+      "Security review is the recurring wall — 3 of the last 5 enterprise deals paused at the security-questionnaire stage. Per-seat pricing fatigue compounds it: support logged 14 seat-pricing objections this month.",
+    sources: ["m1", "m5"],
+    decision: "Unblock security review for Acme",
+  },
+  {
+    id: "q3",
+    question: "Has our target persona changed?",
+    answer:
+      "Yes — senior PMs are now the primary adopters. 8 of 10 recent interviewees were 6+ years in role, not juniors. personas.md still describes the old junior-PM profile and needs a rewrite.",
+    sources: ["m2"],
+    decision: "Rewrite personas.md",
+  },
+  {
+    id: "q4",
+    question: "Who owns the platform migration risk?",
+    answer:
+      "Maya (Eng lead) flagged it in #eng-leads — the Q3 platform migration may slip 3 weeks. It compounds the activation problem, since guided setup depends on that platform work landing.",
+    sources: ["m4"],
+    decision: "Spec connector-setup fix before Q3 planning",
+  },
+];
+
+// Back-compat alias (first query) for any older reference.
+export const cannedAnswer = queries[0];
+
+// ── Knowledge graph: per-node detail for the inspector panel ──
+export const nodeDetail: Record<
+  string,
+  { kindLabel: string; blurb: string; memoryIds: string[] }
+> = {
+  n1: { kindLabel: "Theme", blurb: "38% of new workspaces never finish the first connector.", memoryIds: ["m3"] },
+  n2: { kindLabel: "Theme", blurb: "Connector setup is the activation gate — where friction concentrates.", memoryIds: ["m3"] },
+  n3: { kindLabel: "Artifact", blurb: "Q3 roadmap — at risk of a 3-week slip on platform work.", memoryIds: ["m4"] },
+  n4: { kindLabel: "Person", blurb: "Eng lead. Owns the platform-migration risk.", memoryIds: ["m4"] },
+  n5: { kindLabel: "Decision", blurb: "Ship guided setup instead of a full rebuild.", memoryIds: ["m3", "m4"] },
+  n6: { kindLabel: "Theme", blurb: "Senior PMs are now the primary adopters, not juniors.", memoryIds: ["m2"] },
+  n7: { kindLabel: "Artifact", blurb: "PRD produced by the guided-setup decision.", memoryIds: [] },
+};
+
+// ── Dashboard: detected patterns that connect memories → a priority ──
+export type Pattern = {
+  id: string;
+  title: string;
+  memoryIds: string[];
+  priorityId: string;
+  severity: "attention" | "watch";
+};
+
+export const patterns: Pattern[] = [
+  { id: "pat1", title: "Enterprise deals stalling at security review", memoryIds: ["m1", "m5"], priorityId: "p1", severity: "attention" },
+  { id: "pat2", title: "Persona shifted to senior PMs", memoryIds: ["m2"], priorityId: "p2", severity: "attention" },
+  { id: "pat3", title: "Activation + roadmap risk compounding", memoryIds: ["m3", "m4"], priorityId: "p3", severity: "watch" },
+];
 
 export const connectors = [
   { name: "Slack", status: "connected", items: "1,204 messages distilled" },
