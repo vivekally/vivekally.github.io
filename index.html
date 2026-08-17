@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Intelligence · 2026 — The market, the minds, and the frontier</title>
-<meta name="description" content="Five reports on AI in 2026: the AI Technology Stack Landscape Report (12 layers, 97 companies), the State of the Labs Briefing (22 labs, 4 doctrines), the Frontier Board tracker (38 unsolved-problem startups, 2026 funding month by month, YC), Two Robot Industries (physical AI, 20 companies graded against an evidence bar), and The Robotics Stack (14 layers, 181 companies, the entire robotics industry). Independent and fact-checked.">
+<title>AI Intelligence · 2026 — AI and Robotics research</title>
+<meta name="description" content="Five independent 2026 research reports in two categories. AI: the Technology Stack Landscape (12 layers, 159 companies, adoption and ROI data), the State of the Labs Briefing (22 labs, 4 doctrines), and the Frontier Board (38 unsolved-problem startups, funding month by month). Robotics: Two Robot Industries (physical AI, 20 companies graded against an evidence bar) and The Robotics Stack (14 layers, 181 companies). Fact-checked, source-cited, no tracking.">
 <meta property="og:title" content="AI Intelligence · 2026">
-<meta property="og:description" content="Where the value sits. What the builders believe. Who is working on what nobody has solved.">
+<meta property="og:description" content="Five reports in two categories. AI: the stack, the labs, the frontier. Robotics: what physical AI has actually shipped.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vivekally.github.io/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1F5FA;&#xFE0F;</text></svg>">
@@ -93,6 +93,20 @@
   .card-rstack .fresh { color:#6b7285; }
   .rlayerstrip { display:flex; gap:3px; margin-bottom:1.4rem; }
   .rlayerstrip span { height:7px; flex:1; border-radius:2px; }
+  .cat { display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap;
+         border-top:1px solid rgba(255,255,255,0.09); padding-top:1.5rem; margin-bottom:1.8rem; }
+  .cat:first-of-type { border-top:none; padding-top:0; }
+  .cat-n { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.18em;
+           text-transform:uppercase; color:#4a5162; }
+  .cat h2 { font-family:'DM Serif Display',serif; font-weight:400; font-size:2rem; line-height:1; color:#f0f2f7; }
+  .cat-ai h2 em, .cat-ai .cat-rule { color:#5ee7c4; }
+  .cat-ro h2 em, .cat-ro .cat-rule { color:#6aa9df; }
+  .cat-meta { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em;
+              text-transform:uppercase; color:#6b7285; margin-left:auto; }
+  .cat-ai .cat-meta b { color:#5ee7c4; font-weight:500; }
+  .cat-ro .cat-meta b { color:#6aa9df; font-weight:500; }
+  .cat-lede { font-size:0.92rem; line-height:1.65; color:#8b93a5; max-width:60em; margin:-0.9rem 0 1.8rem; }
+  .band { margin-bottom:3rem; }
   .cross { border-top:1px solid rgba(255,255,255,0.08); padding-top:2.4rem; display:grid; grid-template-columns:repeat(3,1fr); gap:2.2rem; }
   .cross h3 { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:#5ee7c4; margin-bottom:0.7rem; }
   .cross p { font-size:0.88rem; line-height:1.65; color:#8b93a5; }
@@ -103,14 +117,56 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="eyebrow">Independent research · <b>Refreshed August 7, 2026</b> · vivekally.github.io</div>
-  <h1>The market, <em>and the minds</em> behind it.</h1>
-  <p class="sub">Five reports on AI in 2026. The <b>Stack Landscape</b> maps where the money and the moats sit, layer by layer. The <b>Labs Briefing</b> maps what the people building it actually believe. The <b>Frontier Board</b> tracks who is attacking the problems nobody has solved yet, and where this year's capital actually landed. <b>Two Robot Industries</b> leaves the software behind and asks what physical AI has actually shipped, and <b>The Robotics Stack</b> maps the whole industry beneath it, layer by layer.</p>
+  <div class="eyebrow">Independent research · <b>Refreshed August 17, 2026</b> · vivekally.github.io</div>
+  <h1>Two industries, <em>one research shelf</em>.</h1>
+  <p class="sub">Five reports, in two categories. <b>AI</b> covers the software stack, the labs setting its direction, and the frontier bets nobody has solved yet. <b>Robotics</b> covers physical AI, where every deployment claim is graded against a stated evidence bar and mapped onto the supply chain underneath it. Same method throughout: volatility-tiered fact-checks, conflicts logged rather than smoothed, and every figure sourced.</p>
 
-  <a class="card card-track" href="https://vivekally.github.io/ai-frontier-tracker-2026/">
+  <div class="cat cat-ai">
+    <span class="cat-n">Category 01</span>
+    <h2><em>AI</em></h2>
+    <span class="cat-meta"><b>3 reports</b> &middot; the stack, the labs, the frontier</span>
+  </div>
+  <p class="cat-lede">Software AI, from the silicon underneath it to the people deciding where it goes next. Where the value sits, what the builders believe, and who is attacking the problems nobody has solved.</p>
+  <div class="band">
+    <div class="shelf">
+<a class="card card-stack" href="https://vivekally.github.io/ai-stack-report/">
+      <span class="fresh">R2026-09 · AUG 17 2026</span>
+      <span class="tag">AI 01 · SUPPLY SIDE</span>
+      <h2>The AI Technology Stack<br><em>Definitive Landscape Report</em></h2>
+      <p>12 layers from silicon to verticals, three cross-cutting spines (security, regulation, energy), and the demand-side record: 88% of enterprises have adopted AI, about 6% can show EBIT impact. Charts, competitive tables, a searchable index and a knowledge graph.</p>
+      <div class="layerstrip">
+        <span style="background:#ff6b6b"></span><span style="background:#ff9f43"></span><span style="background:#ffd32a"></span><span style="background:#48dbfb"></span><span style="background:#54a0ff"></span><span style="background:#a29bfe"></span><span style="background:#fd79a8"></span><span style="background:#00cec9"></span><span style="background:#6ab04c"></span><span style="background:#badc58"></span><span style="background:#e056fd"></span><span style="background:#f9ca24"></span>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">12</div><div class="l">Layers</div></div>
+        <div class="stat"><div class="n">159</div><div class="l">Companies</div></div>
+        <div class="stat"><div class="n">$2T+</div><div class="l">Ecosystem</div></div>
+        <div class="stat"><div class="n">37</div><div class="l">Fact-checks</div></div>
+      </div>
+      <span class="cta">Open the stack map &rarr;</span>
+    </a>
+
+<a class="card card-labs" href="https://vivekally.github.io/ai-labs-briefing-2026/">
+      <span class="fresh">JUL 13 2026 · FACT-CHECKED</span>
+      <span class="tag">AI 02 · DEMAND SIDE</span>
+      <h2>One consensus,<br>four doctrines</h2>
+      <p>What 22 frontier labs are actually building — where they contradict one another, where they quietly agree, and who is betting against LLMs entirely.</p>
+      <div class="doctrinestrip">
+        <span style="background:#2a78d6"></span><span style="background:#199e70"></span><span style="background:#c98500"></span><span style="background:#008300"></span>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">22</div><div class="l">Labs</div></div>
+        <div class="stat"><div class="n">4</div><div class="l">Doctrines</div></div>
+        <div class="stat"><div class="n">$2B+</div><div class="l">Non-LLM bets</div></div>
+        <div class="stat"><div class="n">6</div><div class="l">Sections</div></div>
+      </div>
+      <span class="cta">Open the briefing &rarr;</span>
+    </a>
+    </div>
+<a class="card card-track" href="https://vivekally.github.io/ai-frontier-tracker-2026/">
     <div>
       <span class="live"><i></i>TRACKER · UPDATED AUG 7 2026</span>
-      <span class="tag">03 · THE FRONTIER</span>
+      <span class="tag">AI 03 · THE FRONTIER</span>
       <h2>Who is working on the problems <em>nobody has solved</em></h2>
       <p>38 frontier bets sorted by unsolved problem — Skyfall, Mirendil, Oak Lab, Ineffable, Discovery Loop, Ndea. Plus a sortable ledger of 2026's funding, what came out of YC, and the method for tracking it yourself.</p>
       <div class="stats">
@@ -133,28 +189,18 @@
       <div class="sparkcap">GLOBAL VC BY MONTH, 2026 · Q1 $300B<br>MAY $92B — SECOND-LARGEST MONTH ON RECORD<br>TWO COMPANIES TOOK 43% OF H1</div>
     </div>
   </a>
+  </div>
 
-  <div class="shelf">
-    <a class="card card-rstack" href="https://vivekally.github.io/ai-robotics-stack-2026/">
-      <span class="fresh">AUG 7 2026 · 181 COMPANIES</span>
-      <span class="tag">05 · THE ROBOTICS STACK</span>
-      <h2>The Robotics Stack<br><em>Definitive Landscape Report</em></h2>
-      <p>14 layers from rare-earth magnets to robot-delivered services, mapping the entire industry — humanoids, autonomous vehicles, drones and defence, surgical, agricultural, warehouse and industrial. Competitive tables, a searchable company index, a force-directed knowledge graph, and strategic build opportunities by funding tier.</p>
-      <div class="rlayerstrip">
-        <span style="background:#ff6b6b"></span><span style="background:#ff9f43"></span><span style="background:#ffd32a"></span><span style="background:#48dbfb"></span><span style="background:#54a0ff"></span><span style="background:#a29bfe"></span><span style="background:#fd79a8"></span><span style="background:#00cec9"></span><span style="background:#6ab04c"></span><span style="background:#badc58"></span><span style="background:#e056fd"></span><span style="background:#f9ca24"></span><span style="background:#7ed6df"></span><span style="background:#c8d6e5"></span>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="n">14</div><div class="l">Layers</div></div>
-        <div class="stat"><div class="n">181</div><div class="l">Companies</div></div>
-        <div class="stat"><div class="n">422</div><div class="l">Relationships</div></div>
-        <div class="stat"><div class="n">84</div><div class="l">Sub-layers</div></div>
-      </div>
-      <span class="cta">Open the stack map &rarr;</span>
-    </a>
-
-    <a class="card card-robot" href="https://vivekally.github.io/ai-robotics-report-2026/">
+  <div class="cat cat-ro">
+    <span class="cat-n">Category 02</span>
+    <h2><em>Robotics</em></h2>
+    <span class="cat-meta"><b>2 reports</b> &middot; physical AI, evidence-graded</span>
+  </div>
+  <p class="cat-lede">Physical AI, where a claim has to survive contact with hardware. What has actually shipped and what has only raised, and the fourteen-layer supply chain neither side can escape.</p>
+  <div class="band">
+<a class="card card-robot" href="https://vivekally.github.io/ai-robotics-report-2026/">
       <span class="fresh">AUG 7 2026 · TIER-1 SOURCED</span>
-      <span class="tag">04 · PHYSICAL AI</span>
+      <span class="tag">ROBOTICS 01 · PHYSICAL AI</span>
       <h2>Two robot industries,<br><em>and a wall going up between them</em></h2>
       <p>One robot industry earns billions and is almost entirely teleoperated. The other has raised more capital in eight months than the first earns in a year, and mostly cannot say how many units it has in the field. Every deployment claim graded against a stated evidence bar &mdash; plus the fortnight the US closed its market to Chinese robots and Unitree went public.</p>
       <div class="gradestrip">
@@ -169,41 +215,25 @@
       <span class="cta">Open the briefing &rarr;</span>
     </a>
 
-    <a class="card card-stack" href="https://vivekally.github.io/ai-stack-report/">
-      <span class="fresh">R3 · JUL 13 2026</span>
-      <span class="tag">01 · SUPPLY SIDE</span>
-      <h2>The AI Technology Stack<br><em>Definitive Landscape Report</em></h2>
-      <p>12 layers from silicon to verticals. Competitive tables, market sizing, funding metrics, strategic gaps, company knowledge graph.</p>
-      <div class="layerstrip">
-        <span style="background:#ff6b6b"></span><span style="background:#ff9f43"></span><span style="background:#ffd32a"></span><span style="background:#48dbfb"></span><span style="background:#54a0ff"></span><span style="background:#a29bfe"></span><span style="background:#fd79a8"></span><span style="background:#00cec9"></span><span style="background:#6ab04c"></span><span style="background:#badc58"></span><span style="background:#e056fd"></span><span style="background:#f9ca24"></span>
+<a class="card card-rstack" href="https://vivekally.github.io/ai-robotics-stack-2026/">
+      <span class="fresh">AUG 7 2026 · 181 COMPANIES</span>
+      <span class="tag">ROBOTICS 02 · THE STACK</span>
+      <h2>The Robotics Stack<br><em>Definitive Landscape Report</em></h2>
+      <p>14 layers from rare-earth magnets to robot-delivered services, mapping the entire industry — humanoids, autonomous vehicles, drones and defence, surgical, agricultural, warehouse and industrial. Competitive tables, a searchable company index, a force-directed knowledge graph, and strategic build opportunities by funding tier.</p>
+      <div class="rlayerstrip">
+        <span style="background:#ff6b6b"></span><span style="background:#ff9f43"></span><span style="background:#ffd32a"></span><span style="background:#48dbfb"></span><span style="background:#54a0ff"></span><span style="background:#a29bfe"></span><span style="background:#fd79a8"></span><span style="background:#00cec9"></span><span style="background:#6ab04c"></span><span style="background:#badc58"></span><span style="background:#e056fd"></span><span style="background:#f9ca24"></span><span style="background:#7ed6df"></span><span style="background:#c8d6e5"></span>
       </div>
       <div class="stats">
-        <div class="stat"><div class="n">12</div><div class="l">Layers</div></div>
-        <div class="stat"><div class="n">97</div><div class="l">Companies</div></div>
-        <div class="stat"><div class="n">$2T+</div><div class="l">Ecosystem</div></div>
-        <div class="stat"><div class="n">19</div><div class="l">Fact-checks</div></div>
+        <div class="stat"><div class="n">14</div><div class="l">Layers</div></div>
+        <div class="stat"><div class="n">181</div><div class="l">Companies</div></div>
+        <div class="stat"><div class="n">422</div><div class="l">Relationships</div></div>
+        <div class="stat"><div class="n">84</div><div class="l">Sub-layers</div></div>
       </div>
       <span class="cta">Open the stack map &rarr;</span>
     </a>
-
-    <a class="card card-labs" href="https://vivekally.github.io/ai-labs-briefing-2026/">
-      <span class="fresh">JUL 13 2026 · FACT-CHECKED</span>
-      <span class="tag">02 · DEMAND SIDE</span>
-      <h2>One consensus,<br>four doctrines</h2>
-      <p>What 22 frontier labs are actually building — where they contradict one another, where they quietly agree, and who is betting against LLMs entirely.</p>
-      <div class="doctrinestrip">
-        <span style="background:#2a78d6"></span><span style="background:#199e70"></span><span style="background:#c98500"></span><span style="background:#008300"></span>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="n">22</div><div class="l">Labs</div></div>
-        <div class="stat"><div class="n">4</div><div class="l">Doctrines</div></div>
-        <div class="stat"><div class="n">$2B+</div><div class="l">Non-LLM bets</div></div>
-        <div class="stat"><div class="n">6</div><div class="l">Sections</div></div>
-      </div>
-      <span class="cta">Open the briefing &rarr;</span>
-    </a>
   </div>
 
+  <div class="cat cat-ai" style="margin-top:1rem"><span class="cat-n">Where to start</span><h2><em>AI</em></h2></div>
   <div class="cross">
     <div>
       <h3>Read the stack first if&hellip;</h3>
@@ -217,6 +247,9 @@
       <h3>Read the tracker first if&hellip;</h3>
       <p>you're deciding <b>what to watch</b>. It sorts the newest labs by the problem they claim to be solving, follows the money month by month, and lists the dated events that would prove any of it.</p>
     </div>
+  </div>
+  <div class="cat cat-ro"><span class="cat-n">Where to start</span><h2><em>Robotics</em></h2></div>
+  <div class="cross">
     <div>
       <h3>Read the robotics stack first if&hellip;</h3>
       <p>you need <b>the map</b>. 14 layers and 181 companies from rare earths to robotaxi services, with a searchable index and a knowledge graph — the reference document for who sits where in physical AI.</p>
@@ -227,7 +260,7 @@
     </div>
   </div>
 
-  <div class="foot">ALL FIVE REPORTS: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · CONFLICTS LOGGED, NOT SMOOTHED · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
+  <div class="foot">TWO CATEGORIES · FIVE REPORTS · ONE METHOD: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · CONFLICTS LOGGED, NOT SMOOTHED · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
 </div>
 </body>
 </html>
