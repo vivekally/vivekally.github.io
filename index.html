@@ -93,6 +93,24 @@
   .card-rstack .fresh { color:#6b7285; }
   .rlayerstrip { display:flex; gap:3px; margin-bottom:1.4rem; }
   .rlayerstrip span { height:7px; flex:1; border-radius:2px; }
+  /* Card 6-7 — shipped products, violet instrument language */
+  .card-prod { background:linear-gradient(160deg,#14111c,#0a0c10); padding:2.1rem 2.1rem 1.8rem; }
+  .card-prod .tag { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; color:#a78bfa; border:1px solid rgba(167,139,250,0.32); border-radius:3px; padding:0.25rem 0.55rem; display:inline-block; margin-bottom:1.3rem; }
+  .card-prod h2 { font-family:'DM Serif Display',serif; font-weight:400; font-size:1.85rem; line-height:1.15; color:#f0f2f7; margin-bottom:0.7rem; }
+  .card-prod h2 em { font-style:italic; color:#a78bfa; }
+  .card-prod p { font-size:0.86rem; line-height:1.6; color:#8b93a5; margin-bottom:1.4rem; }
+  .card-prod .stat .n { color:#a78bfa; }
+  .card-prod .cta { color:#a78bfa; }
+  .card-prod .fresh { color:#6b7285; }
+  .stripe { display:flex; gap:3px; margin-bottom:1.4rem; }
+  .stripe span { height:7px; flex:1; border-radius:2px; }
+  .links { display:flex; gap:0.7rem; flex-wrap:wrap; }
+  .links a { font-family:'JetBrains Mono',monospace; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase;
+             color:#a78bfa; text-decoration:none; border:1px solid rgba(167,139,250,0.32); border-radius:4px;
+             padding:0.5rem 0.85rem; transition:background .15s, border-color .15s; }
+  .links a:hover { background:rgba(167,139,250,0.12); border-color:rgba(167,139,250,0.6); }
+  .cat-pr h2 em, .cat-pr .cat-rule { color:#a78bfa; }
+  .cat-pr .cat-meta b { color:#a78bfa; font-weight:500; }
   .cat { display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap;
          border-top:1px solid rgba(255,255,255,0.09); padding-top:1.5rem; margin-bottom:1.8rem; }
   .cat:first-of-type { border-top:none; padding-top:0; }
@@ -233,6 +251,43 @@
     </a>
   </div>
 
+  <div class="cat cat-pr">
+    <span class="cat-n">Category 03</span>
+    <h2><em>Products</em></h2>
+    <span class="cat-meta"><b>2 products</b> &middot; shipped, not written up</span>
+  </div>
+  <p class="cat-lede">The other half of the shelf: things built rather than researched. Working software and the thesis behind it, each with its own source.</p>
+  <div class="band">
+    <div class="shelf">
+      <div class="card card-prod">
+        <span class="fresh">OPEN SOURCE &middot; GITHUB</span>
+        <span class="tag">PRODUCT 01 &middot; PERSONAL FINANCE</span>
+        <h2>AI Personal<br><em>Finance Advisor</em></h2>
+        <p>An AI advisor for personal finances &mdash; the registered-account rules, the contribution room, and the sequencing decisions, handled conversationally instead of in a spreadsheet.</p>
+        <div class="stripe">
+          <span style="background:#a78bfa"></span><span style="background:#8b7ae8"></span><span style="background:#6f68d4"></span><span style="background:#4f56b8"></span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/vivekally/AI-Personal-Finance-Advisor">Repository &rarr;</a>
+        </div>
+      </div>
+
+      <div class="card card-prod">
+        <span class="fresh">LIVE &middot; PLUS MARKET THESIS</span>
+        <span class="tag">PRODUCT 02 &middot; BRAINALLY</span>
+        <h2>BrainAlly<br><em>the company brain</em></h2>
+        <p>The landing page for the product, and the market thesis underneath it &mdash; who the buyers are, where the wedge sits, and why consent is the thing worth owning.</p>
+        <div class="stripe">
+          <span style="background:#a78bfa"></span><span style="background:#7ea6f0"></span><span style="background:#5ee7c4"></span><span style="background:#4f56b8"></span>
+        </div>
+        <div class="links">
+          <a href="https://vivekally.github.io/brainally-landing/">Live site &rarr;</a>
+          <a href="https://vivekally.github.io/brainally-thesis/">Market thesis &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="cat cat-ai" style="margin-top:1rem"><span class="cat-n">Where to start</span><h2><em>AI</em></h2></div>
   <div class="cross">
     <div>
@@ -260,7 +315,7 @@
     </div>
   </div>
 
-  <div class="foot">TWO CATEGORIES · FIVE REPORTS · ONE METHOD: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · CONFLICTS LOGGED, NOT SMOOTHED · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
+  <div class="foot">THREE CATEGORIES · FIVE REPORTS · TWO PRODUCTS · ONE METHOD: VOLATILITY-TIERED FACT-CHECK DISCIPLINE · CONFLICTS LOGGED, NOT SMOOTHED · SOURCE-CITED · SINGLE-FILE HTML, NO TRACKING</div>
 </div>
 </body>
 </html>
