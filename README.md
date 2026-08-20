@@ -11,6 +11,11 @@ Monorepo for all product prototypes and reports. Deploys to GitHub Pages via a s
 | [/pm-os-deck](https://vivekally.github.io/pm-os-deck/) | PM OS — investor deck (web + PPTX) |
 | [/law-os-deals](https://vivekally.github.io/law-os-deals/) | Law OS — Deals edition (transactional lawyers) |
 | [/law-os](https://vivekally.github.io/law-os/) | Law OS — Litigation edition |
+| [/AI-Personal-Finance-Advisor](https://vivekally.github.io/AI-Personal-Finance-Advisor/) | Arrive Finance — prototypes + investor materials ([repo](https://github.com/vivekally/AI-Personal-Finance-Advisor)) |
+| [/brainally-landing](https://vivekally.github.io/brainally-landing/) | BrainAlly — product landing page ([repo](https://github.com/vivekally/brainally-landing)) |
+| [/brainally-thesis](https://vivekally.github.io/brainally-thesis/) | BrainAlly — market thesis ([repo](https://github.com/vivekally/brainally-thesis)) |
+
+The last three are served by their own repos, not built from this monorepo, so they don't appear under Structure below.
 
 ## Structure
 
